@@ -1,0 +1,1026 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>kgw.biomedicine &mdash; kgw 0.1.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=fa44fd50" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=19f00094" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/graphviz.css?v=fd3f3429" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/custom.css?v=2cff78c4" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../../../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../../../_static/documentation_options.js?v=01f34227"></script>
+        <script src="../../../_static/doctools.js?v=9a2dae69"></script>
+        <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="prev" title="kgw" href="../index.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../index.html">
+            
+              <img src="../../../_static/kgw.svg" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../../rst/package_references.html">Package References</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../rst/installation.html">Installation Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../rst/examples.html">Examples</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../../index.html">API Reference</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="../index.html">kgw</a><ul class="current">
+<li class="toctree-l3 current"><a class="reference internal" href="../index.html#subpackages">Subpackages</a><ul class="current">
+<li class="toctree-l4 current"><a class="current reference internal" href="#">kgw.biomedicine</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../index.html#functions">Functions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../index.html#package-contents">Package Contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">kgw</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../index.html">API Reference</a></li>
+          <li class="breadcrumb-item"><a href="../index.html">kgw</a></li>
+      <li class="breadcrumb-item active">kgw.biomedicine</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="module-kgw.biomedicine">
+<span id="kgw-biomedicine"></span><h1>kgw.biomedicine<a class="headerlink" href="#module-kgw.biomedicine" title="Link to this heading"></a></h1>
+<p>Knowledge graph projects from the domain of biomedicine.</p>
+<section id="classes">
+<h2>Classes<a class="headerlink" href="#classes" title="Link to this heading"></a></h2>
+<table class="autosummary longtable docutils align-default">
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#kgw.biomedicine.Ckg" title="kgw.biomedicine.Ckg"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Ckg</span></code></a></p></td>
+<td><p>Clinical Knowledge Graph (CKG).</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#kgw.biomedicine.Hald" title="kgw.biomedicine.Hald"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Hald</span></code></a></p></td>
+<td><p>Human Aging and Longevity Dataset (HALD).</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#kgw.biomedicine.MonarchKg" title="kgw.biomedicine.MonarchKg"><code class="xref py py-obj docutils literal notranslate"><span class="pre">MonarchKg</span></code></a></p></td>
+<td><p>Monarch Knowledge Graph (MonarchKG).</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#kgw.biomedicine.Oregano" title="kgw.biomedicine.Oregano"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Oregano</span></code></a></p></td>
+<td><p>Oregano Knowledge Graph.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#kgw.biomedicine.PrimeKg" title="kgw.biomedicine.PrimeKg"><code class="xref py py-obj docutils literal notranslate"><span class="pre">PrimeKg</span></code></a></p></td>
+<td><p>Precision Medicine Knowledge Graph (PrimeKG).</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="package-contents">
+<h2>Package Contents<a class="headerlink" href="#package-contents" title="Link to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="kgw.biomedicine.Ckg">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">kgw.biomedicine.</span></span><span class="sig-name descname"><span class="pre">Ckg</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">version</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">workdir</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/kgw/biomedicine/_ckg.html#Ckg"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#kgw.biomedicine.Ckg" title="Link to this definition"></a></dt>
+<dd><p>Clinical Knowledge Graph (CKG).</p>
+<p class="rubric">References</p>
+<ul class="simple">
+<li><p>Publication: <a class="reference external" href="https://doi.org/10.1038/s41587-021-01145-6">https://doi.org/10.1038/s41587-021-01145-6</a></p></li>
+<li><p>Website: <a class="reference external" href="https://ckg.readthedocs.io">https://ckg.readthedocs.io</a></p></li>
+<li><p>Code: <a class="reference external" href="https://github.com/MannLabs/CKG">https://github.com/MannLabs/CKG</a></p></li>
+<li><p>Data: <a class="reference external" href="https://doi.org/10.17632/mrcf7f4tc2">https://doi.org/10.17632/mrcf7f4tc2</a></p></li>
+</ul>
+<dl class="py method">
+<dt class="sig sig-object py" id="kgw.biomedicine.Ckg.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">version</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">workdir</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#kgw.biomedicine.Ckg.__init__" title="Link to this definition"></a></dt>
+<dd><p>Initialize a project instance so that tasks can be defined on it.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>version</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">str</span></code></a>) – Version of the dataset that will be downloaded and processed.
+The method <a class="reference internal" href="#kgw.biomedicine.Ckg.get_versions" title="kgw.biomedicine.Ckg.get_versions"><code class="xref py py-meth docutils literal notranslate"><span class="pre">get_versions()</span></code></a> returns all currently available
+versions.</p></li>
+<li><p><strong>workdir</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">str</span></code></a>) – Path of the working directory in which a unique subdirectory will
+be created to hold all downloaded and generated files for
+this project and version.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><ul class="simple">
+<li><p><a class="reference external" href="https://docs.python.org/3/library/exceptions.html#ValueError" title="(in Python v3.13)"><strong>ValueError</strong></a> – Raised if <code class="xref py py-obj docutils literal notranslate"><span class="pre">version</span></code> is invalid or unavailable.</p></li>
+<li><p><a class="reference external" href="https://docs.python.org/3/library/exceptions.html#TypeError" title="(in Python v3.13)"><strong>TypeError</strong></a> – Raised if <code class="xref py py-obj docutils literal notranslate"><span class="pre">workdir</span></code> is not a string.</p></li>
+</ul>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<p>This class does not automatically download or process any data.
+Such tasks first need to be specified by calling the relevant methods
+on the project object and then passing it to the function <a class="reference internal" href="../index.html#kgw.run" title="kgw.run"><code class="xref py py-func docutils literal notranslate"><span class="pre">run()</span></code></a>
+that builds and executes a corresponding workflow.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="kgw.biomedicine.Ckg.get_versions">
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_versions</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#kgw.biomedicine.Ckg.get_versions" title="Link to this definition"></a></dt>
+<dd><p>Fetch all currently available versions from the data repository of the project.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="kgw.biomedicine.Ckg.to_sqlite">
+<span class="sig-name descname"><span class="pre">to_sqlite</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#kgw.biomedicine.Ckg.to_sqlite" title="Link to this definition"></a></dt>
+<dd><p>Convert the knowledge graph to a file-based SQLite database.</p>
+<p>Generates the output file <code class="xref py py-obj docutils literal notranslate"><span class="pre">kg.sqlite</span></code>. This database contains
+a unified representation for each knowledge graph, with the
+same schema being used for each projects. From this intermediate
+format it is possible to generate all other files, using just
+one method per output format rather than writing a custom
+converter for each project.</p>
+<p class="rubric">References</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://www.sqlite.org">SQLite</a></p></li>
+<li><p><a class="reference external" href="https://en.wikipedia.org/wiki/SQLite">Wikipedia: SQLite</a></p></li>
+</ul>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="kgw.biomedicine.Ckg.to_statistics">
+<span class="sig-name descname"><span class="pre">to_statistics</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#kgw.biomedicine.Ckg.to_statistics" title="Link to this definition"></a></dt>
+<dd><p>Determine some statistical properties of the knowledge graph.</p>
+<p>Generates the output file <code class="xref py py-obj docutils literal notranslate"><span class="pre">statistics.json</span></code>. This is a JSON
+file that contains data about basic statistics of the elements
+in the knowledge graph, such as node, edge and type counts.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="kgw.biomedicine.Ckg.to_schema">
+<span class="sig-name descname"><span class="pre">to_schema</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#kgw.biomedicine.Ckg.to_schema" title="Link to this definition"></a></dt>
+<dd><p>Determine the schema of the knowledge graph.</p>
+<p>Generates the output file <code class="xref py py-obj docutils literal notranslate"><span class="pre">schema.html</span></code>. This is a standalone
+HTML file with an interactive graph visualization of all
+entity types in the knowledge graph and the relationship types
+by which they are connected.</p>
+<p class="rubric">References</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://neo4j.com/docs/getting-started/data-modeling/guide-data-modeling/">Neo4j: Graph modeling guidelines</a></p></li>
+<li><p><a class="reference external" href="https://memgraph.com/docs/fundamentals/graph-modeling">Memgraph: Graph modeling</a></p></li>
+</ul>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="kgw.biomedicine.Ckg.to_sql">
+<span class="sig-name descname"><span class="pre">to_sql</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#kgw.biomedicine.Ckg.to_sql" title="Link to this definition"></a></dt>
+<dd><p>Convert the knowledge graph to a SQL text file.</p>
+<p>Generates the output file <code class="xref py py-obj docutils literal notranslate"><span class="pre">kg.sql</span></code>. This is a text file with
+SQL commands that can be used to import the structure and content
+of the knowledge graph into relational database systems such as
+MySQL or PostgreSQL.</p>
+<p class="rubric">References</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://stackoverflow.com/questions/17666249/how-to-import-an-sql-file-using-the-command-line-in-mysql">StackOverflow: How to import an SQL file using the command line in MySQL?</a></p></li>
+<li><p><a class="reference external" href="https://stackoverflow.com/questions/6842393/import-sql-dump-into-postgresql-database">StackOverflow: Import SQL dump into PostgreSQL database</a></p></li>
+</ul>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="kgw.biomedicine.Ckg.to_csv">
+<span class="sig-name descname"><span class="pre">to_csv</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#kgw.biomedicine.Ckg.to_csv" title="Link to this definition"></a></dt>
+<dd><p>Convert the knowledge graph to two CSV text files.</p>
+<p>Generates the output files <code class="xref py py-obj docutils literal notranslate"><span class="pre">kg_nodes.csv</span></code> and <code class="xref py py-obj docutils literal notranslate"><span class="pre">kg_edges.csv</span></code>.</p>
+<p class="rubric">References</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://en.wikipedia.org/wiki/Comma-separated_values">Wikipedia: CSV</a></p></li>
+</ul>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="kgw.biomedicine.Ckg.to_jsonl">
+<span class="sig-name descname"><span class="pre">to_jsonl</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#kgw.biomedicine.Ckg.to_jsonl" title="Link to this definition"></a></dt>
+<dd><p>Convert the knowledge graph to two JSON Lines text files.</p>
+<p>Generates the output files <code class="xref py py-obj docutils literal notranslate"><span class="pre">kg_nodes.jsonl</span></code> and <code class="xref py py-obj docutils literal notranslate"><span class="pre">kg_edges.jsonl</span></code>.</p>
+<p class="rubric">References</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://jsonlines.org">JSONL</a></p></li>
+</ul>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="kgw.biomedicine.Ckg.to_metta">
+<span class="sig-name descname"><span class="pre">to_metta</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">representation</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'spo'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#kgw.biomedicine.Ckg.to_metta" title="Link to this definition"></a></dt>
+<dd><p>Convert the knowledge graph to a MeTTa text file.</p>
+<p>Generates the output file <code class="xref py py-obj docutils literal notranslate"><span class="pre">kg_spo.metta</span></code>, <code class="xref py py-obj docutils literal notranslate"><span class="pre">kg_properties_aggregated.metta</span></code> or
+<code class="xref py py-obj docutils literal notranslate"><span class="pre">kg_properties_expanded.metta</span></code>, depending on the chosen representation.</p>
+<p>Caution: These representations are still subject to experimentation
+and testing. They might change in future versions of this package.</p>
+<dl class="field-list">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>representation</strong> (<em>str</em>) – The format used to represent the knowledge graph in the MeTTa language.</p>
+<p>Available options:</p>
+<ul class="simple">
+<li><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">&quot;spo&quot;</span></code>: Semantic triples of the form <code class="xref py py-obj docutils literal notranslate"><span class="pre">(&quot;subject&quot;,</span> <span class="pre">&quot;predicate&quot;,</span> <span class="pre">&quot;object&quot;)</span></code>.
+If properties are present in the original knowledge graph, they are
+ignored in this representation.</p></li>
+<li><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">&quot;properties_aggregated&quot;</span></code>: Properties (=key-value pairs) are represented
+by putting each key on a separate line, but each value is ensured to be a
+single number or string. This means values that hold a compound data type
+like a list or dict are aggregated into one string in JSON string format.
+Text identifiers of nodes are reused to create the association with their
+properties, while text identifiers of the form “e{cnt}” are introduced for
+edges to serve the same purpose.</p></li>
+<li><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">&quot;properties_expanded&quot;</span></code>: Properties (=key-value pairs) are represented
+by fully expanding their keys and values onto as many lines as required.
+Numerical identifiers for nodes and edges are introduced to create the
+association between these elements and their properties.</p></li>
+</ul>
+</dd>
+</dl>
+<p class="rubric">References</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://metta-lang.dev">MeTTa language</a></p></li>
+<li><p><a class="reference external" href="https://hyperon.opencog.org">OpenCog Hyperon framework</a></p></li>
+</ul>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="kgw.biomedicine.Ckg.to_graphml">
+<span class="sig-name descname"><span class="pre">to_graphml</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#kgw.biomedicine.Ckg.to_graphml" title="Link to this definition"></a></dt>
+<dd><p>Convert the knowledge graph to a GraphML text file.</p>
+<p>Generates the output file <code class="xref py py-obj docutils literal notranslate"><span class="pre">kg.graphml</span></code>.</p>
+<p class="rubric">References</p>
+<ul class="simple">
+<li><p><a class="reference external" href="http://graphml.graphdrawing.org">GraphML</a></p></li>
+<li><p><a class="reference external" href="https://en.wikipedia.org/wiki/GraphML">Wikipedia: GraphML</a></p></li>
+</ul>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="kgw.biomedicine.Hald">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">kgw.biomedicine.</span></span><span class="sig-name descname"><span class="pre">Hald</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">version</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">workdir</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/kgw/biomedicine/_hald.html#Hald"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#kgw.biomedicine.Hald" title="Link to this definition"></a></dt>
+<dd><p>Human Aging and Longevity Dataset (HALD).</p>
+<p class="rubric">References</p>
+<ul class="simple">
+<li><p>Publication: <a class="reference external" href="https://doi.org/10.1038/s41597-023-02781-0">https://doi.org/10.1038/s41597-023-02781-0</a></p></li>
+<li><p>Website: <a class="reference external" href="https://bis.zju.edu.cn/hald">https://bis.zju.edu.cn/hald</a></p></li>
+<li><p>Code: <a class="reference external" href="https://github.com/zexuwu/hald">https://github.com/zexuwu/hald</a></p></li>
+<li><p>Data: <a class="reference external" href="https://doi.org/10.6084/m9.figshare.22828196">https://doi.org/10.6084/m9.figshare.22828196</a></p></li>
+</ul>
+<dl class="py method">
+<dt class="sig sig-object py" id="kgw.biomedicine.Hald.to_schema">
+<span class="sig-name descname"><span class="pre">to_schema</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/kgw/biomedicine/_hald.html#Hald.to_schema"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#kgw.biomedicine.Hald.to_schema" title="Link to this definition"></a></dt>
+<dd><p>Determine the schema of the knowledge graph.</p>
+<p>Generates the output file <code class="xref py py-obj docutils literal notranslate"><span class="pre">schema.html</span></code>. This is a standalone
+HTML file with an interactive graph visualization of all
+entity types in the knowledge graph and the relationship types
+by which they are connected.</p>
+<p class="rubric">References</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://neo4j.com/docs/getting-started/data-modeling/guide-data-modeling/">Neo4j: Graph modeling guidelines</a></p></li>
+<li><p><a class="reference external" href="https://memgraph.com/docs/fundamentals/graph-modeling">Memgraph: Graph modeling</a></p></li>
+</ul>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="kgw.biomedicine.Hald.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">version</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">workdir</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#kgw.biomedicine.Hald.__init__" title="Link to this definition"></a></dt>
+<dd><p>Initialize a project instance so that tasks can be defined on it.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>version</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">str</span></code></a>) – Version of the dataset that will be downloaded and processed.
+The method <a class="reference internal" href="#kgw.biomedicine.Hald.get_versions" title="kgw.biomedicine.Hald.get_versions"><code class="xref py py-meth docutils literal notranslate"><span class="pre">get_versions()</span></code></a> returns all currently available
+versions.</p></li>
+<li><p><strong>workdir</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">str</span></code></a>) – Path of the working directory in which a unique subdirectory will
+be created to hold all downloaded and generated files for
+this project and version.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><ul class="simple">
+<li><p><a class="reference external" href="https://docs.python.org/3/library/exceptions.html#ValueError" title="(in Python v3.13)"><strong>ValueError</strong></a> – Raised if <code class="xref py py-obj docutils literal notranslate"><span class="pre">version</span></code> is invalid or unavailable.</p></li>
+<li><p><a class="reference external" href="https://docs.python.org/3/library/exceptions.html#TypeError" title="(in Python v3.13)"><strong>TypeError</strong></a> – Raised if <code class="xref py py-obj docutils literal notranslate"><span class="pre">workdir</span></code> is not a string.</p></li>
+</ul>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<p>This class does not automatically download or process any data.
+Such tasks first need to be specified by calling the relevant methods
+on the project object and then passing it to the function <a class="reference internal" href="../index.html#kgw.run" title="kgw.run"><code class="xref py py-func docutils literal notranslate"><span class="pre">run()</span></code></a>
+that builds and executes a corresponding workflow.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="kgw.biomedicine.Hald.get_versions">
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_versions</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#kgw.biomedicine.Hald.get_versions" title="Link to this definition"></a></dt>
+<dd><p>Fetch all currently available versions from the data repository of the project.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="kgw.biomedicine.Hald.to_sqlite">
+<span class="sig-name descname"><span class="pre">to_sqlite</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#kgw.biomedicine.Hald.to_sqlite" title="Link to this definition"></a></dt>
+<dd><p>Convert the knowledge graph to a file-based SQLite database.</p>
+<p>Generates the output file <code class="xref py py-obj docutils literal notranslate"><span class="pre">kg.sqlite</span></code>. This database contains
+a unified representation for each knowledge graph, with the
+same schema being used for each projects. From this intermediate
+format it is possible to generate all other files, using just
+one method per output format rather than writing a custom
+converter for each project.</p>
+<p class="rubric">References</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://www.sqlite.org">SQLite</a></p></li>
+<li><p><a class="reference external" href="https://en.wikipedia.org/wiki/SQLite">Wikipedia: SQLite</a></p></li>
+</ul>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="kgw.biomedicine.Hald.to_statistics">
+<span class="sig-name descname"><span class="pre">to_statistics</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#kgw.biomedicine.Hald.to_statistics" title="Link to this definition"></a></dt>
+<dd><p>Determine some statistical properties of the knowledge graph.</p>
+<p>Generates the output file <code class="xref py py-obj docutils literal notranslate"><span class="pre">statistics.json</span></code>. This is a JSON
+file that contains data about basic statistics of the elements
+in the knowledge graph, such as node, edge and type counts.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="kgw.biomedicine.Hald.to_sql">
+<span class="sig-name descname"><span class="pre">to_sql</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#kgw.biomedicine.Hald.to_sql" title="Link to this definition"></a></dt>
+<dd><p>Convert the knowledge graph to a SQL text file.</p>
+<p>Generates the output file <code class="xref py py-obj docutils literal notranslate"><span class="pre">kg.sql</span></code>. This is a text file with
+SQL commands that can be used to import the structure and content
+of the knowledge graph into relational database systems such as
+MySQL or PostgreSQL.</p>
+<p class="rubric">References</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://stackoverflow.com/questions/17666249/how-to-import-an-sql-file-using-the-command-line-in-mysql">StackOverflow: How to import an SQL file using the command line in MySQL?</a></p></li>
+<li><p><a class="reference external" href="https://stackoverflow.com/questions/6842393/import-sql-dump-into-postgresql-database">StackOverflow: Import SQL dump into PostgreSQL database</a></p></li>
+</ul>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="kgw.biomedicine.Hald.to_csv">
+<span class="sig-name descname"><span class="pre">to_csv</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#kgw.biomedicine.Hald.to_csv" title="Link to this definition"></a></dt>
+<dd><p>Convert the knowledge graph to two CSV text files.</p>
+<p>Generates the output files <code class="xref py py-obj docutils literal notranslate"><span class="pre">kg_nodes.csv</span></code> and <code class="xref py py-obj docutils literal notranslate"><span class="pre">kg_edges.csv</span></code>.</p>
+<p class="rubric">References</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://en.wikipedia.org/wiki/Comma-separated_values">Wikipedia: CSV</a></p></li>
+</ul>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="kgw.biomedicine.Hald.to_jsonl">
+<span class="sig-name descname"><span class="pre">to_jsonl</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#kgw.biomedicine.Hald.to_jsonl" title="Link to this definition"></a></dt>
+<dd><p>Convert the knowledge graph to two JSON Lines text files.</p>
+<p>Generates the output files <code class="xref py py-obj docutils literal notranslate"><span class="pre">kg_nodes.jsonl</span></code> and <code class="xref py py-obj docutils literal notranslate"><span class="pre">kg_edges.jsonl</span></code>.</p>
+<p class="rubric">References</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://jsonlines.org">JSONL</a></p></li>
+</ul>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="kgw.biomedicine.Hald.to_metta">
+<span class="sig-name descname"><span class="pre">to_metta</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">representation</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'spo'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#kgw.biomedicine.Hald.to_metta" title="Link to this definition"></a></dt>
+<dd><p>Convert the knowledge graph to a MeTTa text file.</p>
+<p>Generates the output file <code class="xref py py-obj docutils literal notranslate"><span class="pre">kg_spo.metta</span></code>, <code class="xref py py-obj docutils literal notranslate"><span class="pre">kg_properties_aggregated.metta</span></code> or
+<code class="xref py py-obj docutils literal notranslate"><span class="pre">kg_properties_expanded.metta</span></code>, depending on the chosen representation.</p>
+<p>Caution: These representations are still subject to experimentation
+and testing. They might change in future versions of this package.</p>
+<dl class="field-list">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>representation</strong> (<em>str</em>) – The format used to represent the knowledge graph in the MeTTa language.</p>
+<p>Available options:</p>
+<ul class="simple">
+<li><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">&quot;spo&quot;</span></code>: Semantic triples of the form <code class="xref py py-obj docutils literal notranslate"><span class="pre">(&quot;subject&quot;,</span> <span class="pre">&quot;predicate&quot;,</span> <span class="pre">&quot;object&quot;)</span></code>.
+If properties are present in the original knowledge graph, they are
+ignored in this representation.</p></li>
+<li><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">&quot;properties_aggregated&quot;</span></code>: Properties (=key-value pairs) are represented
+by putting each key on a separate line, but each value is ensured to be a
+single number or string. This means values that hold a compound data type
+like a list or dict are aggregated into one string in JSON string format.
+Text identifiers of nodes are reused to create the association with their
+properties, while text identifiers of the form “e{cnt}” are introduced for
+edges to serve the same purpose.</p></li>
+<li><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">&quot;properties_expanded&quot;</span></code>: Properties (=key-value pairs) are represented
+by fully expanding their keys and values onto as many lines as required.
+Numerical identifiers for nodes and edges are introduced to create the
+association between these elements and their properties.</p></li>
+</ul>
+</dd>
+</dl>
+<p class="rubric">References</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://metta-lang.dev">MeTTa language</a></p></li>
+<li><p><a class="reference external" href="https://hyperon.opencog.org">OpenCog Hyperon framework</a></p></li>
+</ul>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="kgw.biomedicine.Hald.to_graphml">
+<span class="sig-name descname"><span class="pre">to_graphml</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#kgw.biomedicine.Hald.to_graphml" title="Link to this definition"></a></dt>
+<dd><p>Convert the knowledge graph to a GraphML text file.</p>
+<p>Generates the output file <code class="xref py py-obj docutils literal notranslate"><span class="pre">kg.graphml</span></code>.</p>
+<p class="rubric">References</p>
+<ul class="simple">
+<li><p><a class="reference external" href="http://graphml.graphdrawing.org">GraphML</a></p></li>
+<li><p><a class="reference external" href="https://en.wikipedia.org/wiki/GraphML">Wikipedia: GraphML</a></p></li>
+</ul>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="kgw.biomedicine.MonarchKg">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">kgw.biomedicine.</span></span><span class="sig-name descname"><span class="pre">MonarchKg</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">version</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">workdir</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/kgw/biomedicine/_monarchkg.html#MonarchKg"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#kgw.biomedicine.MonarchKg" title="Link to this definition"></a></dt>
+<dd><p>Monarch Knowledge Graph (MonarchKG).</p>
+<p class="rubric">References</p>
+<ul class="simple">
+<li><p>Publication: <a class="reference external" href="https://doi.org/10.1093/nar/gkad1082">https://doi.org/10.1093/nar/gkad1082</a></p></li>
+<li><p>Website: <a class="reference external" href="https://monarchinitiative.org">https://monarchinitiative.org</a></p></li>
+<li><p>Code: <a class="reference external" href="https://github.com/monarch-initiative/monarch-ingest">https://github.com/monarch-initiative/monarch-ingest</a></p></li>
+<li><p>Data: <a class="reference external" href="https://data.monarchinitiative.org/monarch-kg/index.html">https://data.monarchinitiative.org/monarch-kg/index.html</a></p></li>
+</ul>
+<dl class="py method">
+<dt class="sig sig-object py" id="kgw.biomedicine.MonarchKg.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">version</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">workdir</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#kgw.biomedicine.MonarchKg.__init__" title="Link to this definition"></a></dt>
+<dd><p>Initialize a project instance so that tasks can be defined on it.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>version</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">str</span></code></a>) – Version of the dataset that will be downloaded and processed.
+The method <a class="reference internal" href="#kgw.biomedicine.MonarchKg.get_versions" title="kgw.biomedicine.MonarchKg.get_versions"><code class="xref py py-meth docutils literal notranslate"><span class="pre">get_versions()</span></code></a> returns all currently available
+versions.</p></li>
+<li><p><strong>workdir</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">str</span></code></a>) – Path of the working directory in which a unique subdirectory will
+be created to hold all downloaded and generated files for
+this project and version.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><ul class="simple">
+<li><p><a class="reference external" href="https://docs.python.org/3/library/exceptions.html#ValueError" title="(in Python v3.13)"><strong>ValueError</strong></a> – Raised if <code class="xref py py-obj docutils literal notranslate"><span class="pre">version</span></code> is invalid or unavailable.</p></li>
+<li><p><a class="reference external" href="https://docs.python.org/3/library/exceptions.html#TypeError" title="(in Python v3.13)"><strong>TypeError</strong></a> – Raised if <code class="xref py py-obj docutils literal notranslate"><span class="pre">workdir</span></code> is not a string.</p></li>
+</ul>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<p>This class does not automatically download or process any data.
+Such tasks first need to be specified by calling the relevant methods
+on the project object and then passing it to the function <a class="reference internal" href="../index.html#kgw.run" title="kgw.run"><code class="xref py py-func docutils literal notranslate"><span class="pre">run()</span></code></a>
+that builds and executes a corresponding workflow.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="kgw.biomedicine.MonarchKg.get_versions">
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_versions</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#kgw.biomedicine.MonarchKg.get_versions" title="Link to this definition"></a></dt>
+<dd><p>Fetch all currently available versions from the data repository of the project.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="kgw.biomedicine.MonarchKg.to_sqlite">
+<span class="sig-name descname"><span class="pre">to_sqlite</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#kgw.biomedicine.MonarchKg.to_sqlite" title="Link to this definition"></a></dt>
+<dd><p>Convert the knowledge graph to a file-based SQLite database.</p>
+<p>Generates the output file <code class="xref py py-obj docutils literal notranslate"><span class="pre">kg.sqlite</span></code>. This database contains
+a unified representation for each knowledge graph, with the
+same schema being used for each projects. From this intermediate
+format it is possible to generate all other files, using just
+one method per output format rather than writing a custom
+converter for each project.</p>
+<p class="rubric">References</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://www.sqlite.org">SQLite</a></p></li>
+<li><p><a class="reference external" href="https://en.wikipedia.org/wiki/SQLite">Wikipedia: SQLite</a></p></li>
+</ul>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="kgw.biomedicine.MonarchKg.to_statistics">
+<span class="sig-name descname"><span class="pre">to_statistics</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#kgw.biomedicine.MonarchKg.to_statistics" title="Link to this definition"></a></dt>
+<dd><p>Determine some statistical properties of the knowledge graph.</p>
+<p>Generates the output file <code class="xref py py-obj docutils literal notranslate"><span class="pre">statistics.json</span></code>. This is a JSON
+file that contains data about basic statistics of the elements
+in the knowledge graph, such as node, edge and type counts.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="kgw.biomedicine.MonarchKg.to_schema">
+<span class="sig-name descname"><span class="pre">to_schema</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#kgw.biomedicine.MonarchKg.to_schema" title="Link to this definition"></a></dt>
+<dd><p>Determine the schema of the knowledge graph.</p>
+<p>Generates the output file <code class="xref py py-obj docutils literal notranslate"><span class="pre">schema.html</span></code>. This is a standalone
+HTML file with an interactive graph visualization of all
+entity types in the knowledge graph and the relationship types
+by which they are connected.</p>
+<p class="rubric">References</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://neo4j.com/docs/getting-started/data-modeling/guide-data-modeling/">Neo4j: Graph modeling guidelines</a></p></li>
+<li><p><a class="reference external" href="https://memgraph.com/docs/fundamentals/graph-modeling">Memgraph: Graph modeling</a></p></li>
+</ul>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="kgw.biomedicine.MonarchKg.to_sql">
+<span class="sig-name descname"><span class="pre">to_sql</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#kgw.biomedicine.MonarchKg.to_sql" title="Link to this definition"></a></dt>
+<dd><p>Convert the knowledge graph to a SQL text file.</p>
+<p>Generates the output file <code class="xref py py-obj docutils literal notranslate"><span class="pre">kg.sql</span></code>. This is a text file with
+SQL commands that can be used to import the structure and content
+of the knowledge graph into relational database systems such as
+MySQL or PostgreSQL.</p>
+<p class="rubric">References</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://stackoverflow.com/questions/17666249/how-to-import-an-sql-file-using-the-command-line-in-mysql">StackOverflow: How to import an SQL file using the command line in MySQL?</a></p></li>
+<li><p><a class="reference external" href="https://stackoverflow.com/questions/6842393/import-sql-dump-into-postgresql-database">StackOverflow: Import SQL dump into PostgreSQL database</a></p></li>
+</ul>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="kgw.biomedicine.MonarchKg.to_csv">
+<span class="sig-name descname"><span class="pre">to_csv</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#kgw.biomedicine.MonarchKg.to_csv" title="Link to this definition"></a></dt>
+<dd><p>Convert the knowledge graph to two CSV text files.</p>
+<p>Generates the output files <code class="xref py py-obj docutils literal notranslate"><span class="pre">kg_nodes.csv</span></code> and <code class="xref py py-obj docutils literal notranslate"><span class="pre">kg_edges.csv</span></code>.</p>
+<p class="rubric">References</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://en.wikipedia.org/wiki/Comma-separated_values">Wikipedia: CSV</a></p></li>
+</ul>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="kgw.biomedicine.MonarchKg.to_jsonl">
+<span class="sig-name descname"><span class="pre">to_jsonl</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#kgw.biomedicine.MonarchKg.to_jsonl" title="Link to this definition"></a></dt>
+<dd><p>Convert the knowledge graph to two JSON Lines text files.</p>
+<p>Generates the output files <code class="xref py py-obj docutils literal notranslate"><span class="pre">kg_nodes.jsonl</span></code> and <code class="xref py py-obj docutils literal notranslate"><span class="pre">kg_edges.jsonl</span></code>.</p>
+<p class="rubric">References</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://jsonlines.org">JSONL</a></p></li>
+</ul>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="kgw.biomedicine.MonarchKg.to_metta">
+<span class="sig-name descname"><span class="pre">to_metta</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">representation</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'spo'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#kgw.biomedicine.MonarchKg.to_metta" title="Link to this definition"></a></dt>
+<dd><p>Convert the knowledge graph to a MeTTa text file.</p>
+<p>Generates the output file <code class="xref py py-obj docutils literal notranslate"><span class="pre">kg_spo.metta</span></code>, <code class="xref py py-obj docutils literal notranslate"><span class="pre">kg_properties_aggregated.metta</span></code> or
+<code class="xref py py-obj docutils literal notranslate"><span class="pre">kg_properties_expanded.metta</span></code>, depending on the chosen representation.</p>
+<p>Caution: These representations are still subject to experimentation
+and testing. They might change in future versions of this package.</p>
+<dl class="field-list">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>representation</strong> (<em>str</em>) – The format used to represent the knowledge graph in the MeTTa language.</p>
+<p>Available options:</p>
+<ul class="simple">
+<li><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">&quot;spo&quot;</span></code>: Semantic triples of the form <code class="xref py py-obj docutils literal notranslate"><span class="pre">(&quot;subject&quot;,</span> <span class="pre">&quot;predicate&quot;,</span> <span class="pre">&quot;object&quot;)</span></code>.
+If properties are present in the original knowledge graph, they are
+ignored in this representation.</p></li>
+<li><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">&quot;properties_aggregated&quot;</span></code>: Properties (=key-value pairs) are represented
+by putting each key on a separate line, but each value is ensured to be a
+single number or string. This means values that hold a compound data type
+like a list or dict are aggregated into one string in JSON string format.
+Text identifiers of nodes are reused to create the association with their
+properties, while text identifiers of the form “e{cnt}” are introduced for
+edges to serve the same purpose.</p></li>
+<li><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">&quot;properties_expanded&quot;</span></code>: Properties (=key-value pairs) are represented
+by fully expanding their keys and values onto as many lines as required.
+Numerical identifiers for nodes and edges are introduced to create the
+association between these elements and their properties.</p></li>
+</ul>
+</dd>
+</dl>
+<p class="rubric">References</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://metta-lang.dev">MeTTa language</a></p></li>
+<li><p><a class="reference external" href="https://hyperon.opencog.org">OpenCog Hyperon framework</a></p></li>
+</ul>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="kgw.biomedicine.MonarchKg.to_graphml">
+<span class="sig-name descname"><span class="pre">to_graphml</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#kgw.biomedicine.MonarchKg.to_graphml" title="Link to this definition"></a></dt>
+<dd><p>Convert the knowledge graph to a GraphML text file.</p>
+<p>Generates the output file <code class="xref py py-obj docutils literal notranslate"><span class="pre">kg.graphml</span></code>.</p>
+<p class="rubric">References</p>
+<ul class="simple">
+<li><p><a class="reference external" href="http://graphml.graphdrawing.org">GraphML</a></p></li>
+<li><p><a class="reference external" href="https://en.wikipedia.org/wiki/GraphML">Wikipedia: GraphML</a></p></li>
+</ul>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="kgw.biomedicine.Oregano">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">kgw.biomedicine.</span></span><span class="sig-name descname"><span class="pre">Oregano</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">version</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">workdir</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/kgw/biomedicine/_oregano.html#Oregano"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#kgw.biomedicine.Oregano" title="Link to this definition"></a></dt>
+<dd><p>Oregano Knowledge Graph.</p>
+<p class="rubric">References</p>
+<ul class="simple">
+<li><p>Publication: <a class="reference external" href="https://doi.org/10.1038/s41597-023-02757-0">https://doi.org/10.1038/s41597-023-02757-0</a></p></li>
+<li><p>Code: <a class="reference external" href="https://gitub.u-bordeaux.fr/erias/oregano">https://gitub.u-bordeaux.fr/erias/oregano</a></p></li>
+<li><p>Data: <a class="reference external" href="https://doi.org/10.6084/m9.figshare.23553114">https://doi.org/10.6084/m9.figshare.23553114</a></p></li>
+</ul>
+<dl class="py method">
+<dt class="sig sig-object py" id="kgw.biomedicine.Oregano.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">version</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">workdir</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#kgw.biomedicine.Oregano.__init__" title="Link to this definition"></a></dt>
+<dd><p>Initialize a project instance so that tasks can be defined on it.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>version</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">str</span></code></a>) – Version of the dataset that will be downloaded and processed.
+The method <a class="reference internal" href="#kgw.biomedicine.Oregano.get_versions" title="kgw.biomedicine.Oregano.get_versions"><code class="xref py py-meth docutils literal notranslate"><span class="pre">get_versions()</span></code></a> returns all currently available
+versions.</p></li>
+<li><p><strong>workdir</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">str</span></code></a>) – Path of the working directory in which a unique subdirectory will
+be created to hold all downloaded and generated files for
+this project and version.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><ul class="simple">
+<li><p><a class="reference external" href="https://docs.python.org/3/library/exceptions.html#ValueError" title="(in Python v3.13)"><strong>ValueError</strong></a> – Raised if <code class="xref py py-obj docutils literal notranslate"><span class="pre">version</span></code> is invalid or unavailable.</p></li>
+<li><p><a class="reference external" href="https://docs.python.org/3/library/exceptions.html#TypeError" title="(in Python v3.13)"><strong>TypeError</strong></a> – Raised if <code class="xref py py-obj docutils literal notranslate"><span class="pre">workdir</span></code> is not a string.</p></li>
+</ul>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<p>This class does not automatically download or process any data.
+Such tasks first need to be specified by calling the relevant methods
+on the project object and then passing it to the function <a class="reference internal" href="../index.html#kgw.run" title="kgw.run"><code class="xref py py-func docutils literal notranslate"><span class="pre">run()</span></code></a>
+that builds and executes a corresponding workflow.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="kgw.biomedicine.Oregano.get_versions">
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_versions</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#kgw.biomedicine.Oregano.get_versions" title="Link to this definition"></a></dt>
+<dd><p>Fetch all currently available versions from the data repository of the project.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="kgw.biomedicine.Oregano.to_sqlite">
+<span class="sig-name descname"><span class="pre">to_sqlite</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#kgw.biomedicine.Oregano.to_sqlite" title="Link to this definition"></a></dt>
+<dd><p>Convert the knowledge graph to a file-based SQLite database.</p>
+<p>Generates the output file <code class="xref py py-obj docutils literal notranslate"><span class="pre">kg.sqlite</span></code>. This database contains
+a unified representation for each knowledge graph, with the
+same schema being used for each projects. From this intermediate
+format it is possible to generate all other files, using just
+one method per output format rather than writing a custom
+converter for each project.</p>
+<p class="rubric">References</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://www.sqlite.org">SQLite</a></p></li>
+<li><p><a class="reference external" href="https://en.wikipedia.org/wiki/SQLite">Wikipedia: SQLite</a></p></li>
+</ul>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="kgw.biomedicine.Oregano.to_statistics">
+<span class="sig-name descname"><span class="pre">to_statistics</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#kgw.biomedicine.Oregano.to_statistics" title="Link to this definition"></a></dt>
+<dd><p>Determine some statistical properties of the knowledge graph.</p>
+<p>Generates the output file <code class="xref py py-obj docutils literal notranslate"><span class="pre">statistics.json</span></code>. This is a JSON
+file that contains data about basic statistics of the elements
+in the knowledge graph, such as node, edge and type counts.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="kgw.biomedicine.Oregano.to_schema">
+<span class="sig-name descname"><span class="pre">to_schema</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#kgw.biomedicine.Oregano.to_schema" title="Link to this definition"></a></dt>
+<dd><p>Determine the schema of the knowledge graph.</p>
+<p>Generates the output file <code class="xref py py-obj docutils literal notranslate"><span class="pre">schema.html</span></code>. This is a standalone
+HTML file with an interactive graph visualization of all
+entity types in the knowledge graph and the relationship types
+by which they are connected.</p>
+<p class="rubric">References</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://neo4j.com/docs/getting-started/data-modeling/guide-data-modeling/">Neo4j: Graph modeling guidelines</a></p></li>
+<li><p><a class="reference external" href="https://memgraph.com/docs/fundamentals/graph-modeling">Memgraph: Graph modeling</a></p></li>
+</ul>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="kgw.biomedicine.Oregano.to_sql">
+<span class="sig-name descname"><span class="pre">to_sql</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#kgw.biomedicine.Oregano.to_sql" title="Link to this definition"></a></dt>
+<dd><p>Convert the knowledge graph to a SQL text file.</p>
+<p>Generates the output file <code class="xref py py-obj docutils literal notranslate"><span class="pre">kg.sql</span></code>. This is a text file with
+SQL commands that can be used to import the structure and content
+of the knowledge graph into relational database systems such as
+MySQL or PostgreSQL.</p>
+<p class="rubric">References</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://stackoverflow.com/questions/17666249/how-to-import-an-sql-file-using-the-command-line-in-mysql">StackOverflow: How to import an SQL file using the command line in MySQL?</a></p></li>
+<li><p><a class="reference external" href="https://stackoverflow.com/questions/6842393/import-sql-dump-into-postgresql-database">StackOverflow: Import SQL dump into PostgreSQL database</a></p></li>
+</ul>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="kgw.biomedicine.Oregano.to_csv">
+<span class="sig-name descname"><span class="pre">to_csv</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#kgw.biomedicine.Oregano.to_csv" title="Link to this definition"></a></dt>
+<dd><p>Convert the knowledge graph to two CSV text files.</p>
+<p>Generates the output files <code class="xref py py-obj docutils literal notranslate"><span class="pre">kg_nodes.csv</span></code> and <code class="xref py py-obj docutils literal notranslate"><span class="pre">kg_edges.csv</span></code>.</p>
+<p class="rubric">References</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://en.wikipedia.org/wiki/Comma-separated_values">Wikipedia: CSV</a></p></li>
+</ul>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="kgw.biomedicine.Oregano.to_jsonl">
+<span class="sig-name descname"><span class="pre">to_jsonl</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#kgw.biomedicine.Oregano.to_jsonl" title="Link to this definition"></a></dt>
+<dd><p>Convert the knowledge graph to two JSON Lines text files.</p>
+<p>Generates the output files <code class="xref py py-obj docutils literal notranslate"><span class="pre">kg_nodes.jsonl</span></code> and <code class="xref py py-obj docutils literal notranslate"><span class="pre">kg_edges.jsonl</span></code>.</p>
+<p class="rubric">References</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://jsonlines.org">JSONL</a></p></li>
+</ul>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="kgw.biomedicine.Oregano.to_metta">
+<span class="sig-name descname"><span class="pre">to_metta</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">representation</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'spo'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#kgw.biomedicine.Oregano.to_metta" title="Link to this definition"></a></dt>
+<dd><p>Convert the knowledge graph to a MeTTa text file.</p>
+<p>Generates the output file <code class="xref py py-obj docutils literal notranslate"><span class="pre">kg_spo.metta</span></code>, <code class="xref py py-obj docutils literal notranslate"><span class="pre">kg_properties_aggregated.metta</span></code> or
+<code class="xref py py-obj docutils literal notranslate"><span class="pre">kg_properties_expanded.metta</span></code>, depending on the chosen representation.</p>
+<p>Caution: These representations are still subject to experimentation
+and testing. They might change in future versions of this package.</p>
+<dl class="field-list">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>representation</strong> (<em>str</em>) – The format used to represent the knowledge graph in the MeTTa language.</p>
+<p>Available options:</p>
+<ul class="simple">
+<li><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">&quot;spo&quot;</span></code>: Semantic triples of the form <code class="xref py py-obj docutils literal notranslate"><span class="pre">(&quot;subject&quot;,</span> <span class="pre">&quot;predicate&quot;,</span> <span class="pre">&quot;object&quot;)</span></code>.
+If properties are present in the original knowledge graph, they are
+ignored in this representation.</p></li>
+<li><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">&quot;properties_aggregated&quot;</span></code>: Properties (=key-value pairs) are represented
+by putting each key on a separate line, but each value is ensured to be a
+single number or string. This means values that hold a compound data type
+like a list or dict are aggregated into one string in JSON string format.
+Text identifiers of nodes are reused to create the association with their
+properties, while text identifiers of the form “e{cnt}” are introduced for
+edges to serve the same purpose.</p></li>
+<li><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">&quot;properties_expanded&quot;</span></code>: Properties (=key-value pairs) are represented
+by fully expanding their keys and values onto as many lines as required.
+Numerical identifiers for nodes and edges are introduced to create the
+association between these elements and their properties.</p></li>
+</ul>
+</dd>
+</dl>
+<p class="rubric">References</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://metta-lang.dev">MeTTa language</a></p></li>
+<li><p><a class="reference external" href="https://hyperon.opencog.org">OpenCog Hyperon framework</a></p></li>
+</ul>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="kgw.biomedicine.Oregano.to_graphml">
+<span class="sig-name descname"><span class="pre">to_graphml</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#kgw.biomedicine.Oregano.to_graphml" title="Link to this definition"></a></dt>
+<dd><p>Convert the knowledge graph to a GraphML text file.</p>
+<p>Generates the output file <code class="xref py py-obj docutils literal notranslate"><span class="pre">kg.graphml</span></code>.</p>
+<p class="rubric">References</p>
+<ul class="simple">
+<li><p><a class="reference external" href="http://graphml.graphdrawing.org">GraphML</a></p></li>
+<li><p><a class="reference external" href="https://en.wikipedia.org/wiki/GraphML">Wikipedia: GraphML</a></p></li>
+</ul>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="kgw.biomedicine.PrimeKg">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">kgw.biomedicine.</span></span><span class="sig-name descname"><span class="pre">PrimeKg</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">version</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">workdir</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/kgw/biomedicine/_primekg.html#PrimeKg"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#kgw.biomedicine.PrimeKg" title="Link to this definition"></a></dt>
+<dd><p>Precision Medicine Knowledge Graph (PrimeKG).</p>
+<p class="rubric">References</p>
+<ul class="simple">
+<li><p>Publication: <a class="reference external" href="https://doi.org/10.1038/s41597-023-01960-3">https://doi.org/10.1038/s41597-023-01960-3</a></p></li>
+<li><p>Website: <a class="reference external" href="https://zitniklab.hms.harvard.edu/projects/PrimeKG">https://zitniklab.hms.harvard.edu/projects/PrimeKG</a></p></li>
+<li><p>Code: <a class="reference external" href="https://github.com/mims-harvard/PrimeKG">https://github.com/mims-harvard/PrimeKG</a></p></li>
+<li><p>Data: <a class="reference external" href="https://doi.org/10.7910/DVN/IXA7BM">https://doi.org/10.7910/DVN/IXA7BM</a></p></li>
+</ul>
+<dl class="py method">
+<dt class="sig sig-object py" id="kgw.biomedicine.PrimeKg.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">version</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">workdir</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#kgw.biomedicine.PrimeKg.__init__" title="Link to this definition"></a></dt>
+<dd><p>Initialize a project instance so that tasks can be defined on it.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>version</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">str</span></code></a>) – Version of the dataset that will be downloaded and processed.
+The method <a class="reference internal" href="#kgw.biomedicine.PrimeKg.get_versions" title="kgw.biomedicine.PrimeKg.get_versions"><code class="xref py py-meth docutils literal notranslate"><span class="pre">get_versions()</span></code></a> returns all currently available
+versions.</p></li>
+<li><p><strong>workdir</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">str</span></code></a>) – Path of the working directory in which a unique subdirectory will
+be created to hold all downloaded and generated files for
+this project and version.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><ul class="simple">
+<li><p><a class="reference external" href="https://docs.python.org/3/library/exceptions.html#ValueError" title="(in Python v3.13)"><strong>ValueError</strong></a> – Raised if <code class="xref py py-obj docutils literal notranslate"><span class="pre">version</span></code> is invalid or unavailable.</p></li>
+<li><p><a class="reference external" href="https://docs.python.org/3/library/exceptions.html#TypeError" title="(in Python v3.13)"><strong>TypeError</strong></a> – Raised if <code class="xref py py-obj docutils literal notranslate"><span class="pre">workdir</span></code> is not a string.</p></li>
+</ul>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<p>This class does not automatically download or process any data.
+Such tasks first need to be specified by calling the relevant methods
+on the project object and then passing it to the function <a class="reference internal" href="../index.html#kgw.run" title="kgw.run"><code class="xref py py-func docutils literal notranslate"><span class="pre">run()</span></code></a>
+that builds and executes a corresponding workflow.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="kgw.biomedicine.PrimeKg.get_versions">
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_versions</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#kgw.biomedicine.PrimeKg.get_versions" title="Link to this definition"></a></dt>
+<dd><p>Fetch all currently available versions from the data repository of the project.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="kgw.biomedicine.PrimeKg.to_sqlite">
+<span class="sig-name descname"><span class="pre">to_sqlite</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#kgw.biomedicine.PrimeKg.to_sqlite" title="Link to this definition"></a></dt>
+<dd><p>Convert the knowledge graph to a file-based SQLite database.</p>
+<p>Generates the output file <code class="xref py py-obj docutils literal notranslate"><span class="pre">kg.sqlite</span></code>. This database contains
+a unified representation for each knowledge graph, with the
+same schema being used for each projects. From this intermediate
+format it is possible to generate all other files, using just
+one method per output format rather than writing a custom
+converter for each project.</p>
+<p class="rubric">References</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://www.sqlite.org">SQLite</a></p></li>
+<li><p><a class="reference external" href="https://en.wikipedia.org/wiki/SQLite">Wikipedia: SQLite</a></p></li>
+</ul>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="kgw.biomedicine.PrimeKg.to_statistics">
+<span class="sig-name descname"><span class="pre">to_statistics</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#kgw.biomedicine.PrimeKg.to_statistics" title="Link to this definition"></a></dt>
+<dd><p>Determine some statistical properties of the knowledge graph.</p>
+<p>Generates the output file <code class="xref py py-obj docutils literal notranslate"><span class="pre">statistics.json</span></code>. This is a JSON
+file that contains data about basic statistics of the elements
+in the knowledge graph, such as node, edge and type counts.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="kgw.biomedicine.PrimeKg.to_schema">
+<span class="sig-name descname"><span class="pre">to_schema</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#kgw.biomedicine.PrimeKg.to_schema" title="Link to this definition"></a></dt>
+<dd><p>Determine the schema of the knowledge graph.</p>
+<p>Generates the output file <code class="xref py py-obj docutils literal notranslate"><span class="pre">schema.html</span></code>. This is a standalone
+HTML file with an interactive graph visualization of all
+entity types in the knowledge graph and the relationship types
+by which they are connected.</p>
+<p class="rubric">References</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://neo4j.com/docs/getting-started/data-modeling/guide-data-modeling/">Neo4j: Graph modeling guidelines</a></p></li>
+<li><p><a class="reference external" href="https://memgraph.com/docs/fundamentals/graph-modeling">Memgraph: Graph modeling</a></p></li>
+</ul>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="kgw.biomedicine.PrimeKg.to_sql">
+<span class="sig-name descname"><span class="pre">to_sql</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#kgw.biomedicine.PrimeKg.to_sql" title="Link to this definition"></a></dt>
+<dd><p>Convert the knowledge graph to a SQL text file.</p>
+<p>Generates the output file <code class="xref py py-obj docutils literal notranslate"><span class="pre">kg.sql</span></code>. This is a text file with
+SQL commands that can be used to import the structure and content
+of the knowledge graph into relational database systems such as
+MySQL or PostgreSQL.</p>
+<p class="rubric">References</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://stackoverflow.com/questions/17666249/how-to-import-an-sql-file-using-the-command-line-in-mysql">StackOverflow: How to import an SQL file using the command line in MySQL?</a></p></li>
+<li><p><a class="reference external" href="https://stackoverflow.com/questions/6842393/import-sql-dump-into-postgresql-database">StackOverflow: Import SQL dump into PostgreSQL database</a></p></li>
+</ul>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="kgw.biomedicine.PrimeKg.to_csv">
+<span class="sig-name descname"><span class="pre">to_csv</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#kgw.biomedicine.PrimeKg.to_csv" title="Link to this definition"></a></dt>
+<dd><p>Convert the knowledge graph to two CSV text files.</p>
+<p>Generates the output files <code class="xref py py-obj docutils literal notranslate"><span class="pre">kg_nodes.csv</span></code> and <code class="xref py py-obj docutils literal notranslate"><span class="pre">kg_edges.csv</span></code>.</p>
+<p class="rubric">References</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://en.wikipedia.org/wiki/Comma-separated_values">Wikipedia: CSV</a></p></li>
+</ul>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="kgw.biomedicine.PrimeKg.to_jsonl">
+<span class="sig-name descname"><span class="pre">to_jsonl</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#kgw.biomedicine.PrimeKg.to_jsonl" title="Link to this definition"></a></dt>
+<dd><p>Convert the knowledge graph to two JSON Lines text files.</p>
+<p>Generates the output files <code class="xref py py-obj docutils literal notranslate"><span class="pre">kg_nodes.jsonl</span></code> and <code class="xref py py-obj docutils literal notranslate"><span class="pre">kg_edges.jsonl</span></code>.</p>
+<p class="rubric">References</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://jsonlines.org">JSONL</a></p></li>
+</ul>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="kgw.biomedicine.PrimeKg.to_metta">
+<span class="sig-name descname"><span class="pre">to_metta</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">representation</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'spo'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#kgw.biomedicine.PrimeKg.to_metta" title="Link to this definition"></a></dt>
+<dd><p>Convert the knowledge graph to a MeTTa text file.</p>
+<p>Generates the output file <code class="xref py py-obj docutils literal notranslate"><span class="pre">kg_spo.metta</span></code>, <code class="xref py py-obj docutils literal notranslate"><span class="pre">kg_properties_aggregated.metta</span></code> or
+<code class="xref py py-obj docutils literal notranslate"><span class="pre">kg_properties_expanded.metta</span></code>, depending on the chosen representation.</p>
+<p>Caution: These representations are still subject to experimentation
+and testing. They might change in future versions of this package.</p>
+<dl class="field-list">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>representation</strong> (<em>str</em>) – The format used to represent the knowledge graph in the MeTTa language.</p>
+<p>Available options:</p>
+<ul class="simple">
+<li><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">&quot;spo&quot;</span></code>: Semantic triples of the form <code class="xref py py-obj docutils literal notranslate"><span class="pre">(&quot;subject&quot;,</span> <span class="pre">&quot;predicate&quot;,</span> <span class="pre">&quot;object&quot;)</span></code>.
+If properties are present in the original knowledge graph, they are
+ignored in this representation.</p></li>
+<li><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">&quot;properties_aggregated&quot;</span></code>: Properties (=key-value pairs) are represented
+by putting each key on a separate line, but each value is ensured to be a
+single number or string. This means values that hold a compound data type
+like a list or dict are aggregated into one string in JSON string format.
+Text identifiers of nodes are reused to create the association with their
+properties, while text identifiers of the form “e{cnt}” are introduced for
+edges to serve the same purpose.</p></li>
+<li><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">&quot;properties_expanded&quot;</span></code>: Properties (=key-value pairs) are represented
+by fully expanding their keys and values onto as many lines as required.
+Numerical identifiers for nodes and edges are introduced to create the
+association between these elements and their properties.</p></li>
+</ul>
+</dd>
+</dl>
+<p class="rubric">References</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://metta-lang.dev">MeTTa language</a></p></li>
+<li><p><a class="reference external" href="https://hyperon.opencog.org">OpenCog Hyperon framework</a></p></li>
+</ul>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="kgw.biomedicine.PrimeKg.to_graphml">
+<span class="sig-name descname"><span class="pre">to_graphml</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#kgw.biomedicine.PrimeKg.to_graphml" title="Link to this definition"></a></dt>
+<dd><p>Convert the knowledge graph to a GraphML text file.</p>
+<p>Generates the output file <code class="xref py py-obj docutils literal notranslate"><span class="pre">kg.graphml</span></code>.</p>
+<p class="rubric">References</p>
+<ul class="simple">
+<li><p><a class="reference external" href="http://graphml.graphdrawing.org">GraphML</a></p></li>
+<li><p><a class="reference external" href="https://en.wikipedia.org/wiki/GraphML">Wikipedia: GraphML</a></p></li>
+</ul>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="../index.html" class="btn btn-neutral float-left" title="kgw" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, Robert Haas.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Quickstart example &mdash; kgw 0.1.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=fa44fd50" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=19f00094" />
+      <link rel="stylesheet" type="text/css" href="../../_static/graphviz.css?v=fd3f3429" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/custom.css?v=2cff78c4" />
+      <link rel="stylesheet" type="text/css" href="../../_static/nbsphinx-code-cells.css" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../../_static/documentation_options.js?v=01f34227"></script>
+        <script src="../../_static/doctools.js?v=9a2dae69"></script>
+        <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+        <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+        <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Detailed example" href="detailed.html" />
+    <link rel="prev" title="Examples" href="../../rst/examples.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../index.html">
+            
+              <img src="../../_static/kgw.svg" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../rst/package_references.html">Package References</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../rst/installation.html">Installation Guide</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../../rst/examples.html">Examples</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Quickstart example</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#Load-the-package">Load the package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#Define-a-minimal-workflow">Define a minimal workflow</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#Run-it">Run it</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#Inspect-the-results">Inspect the results</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#Interpret-them">Interpret them</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="detailed.html">Detailed example</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../autoapi/index.html">API Reference</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">kgw</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../rst/examples.html">Examples</a></li>
+      <li class="breadcrumb-item active">Quickstart example</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="Quickstart-example">
+<h1>Quickstart example<a class="headerlink" href="#Quickstart-example" title="Link to this heading"></a></h1>
+<p>The following provides a minimal example for getting started with the package <a class="reference external" href="https://robert-haas.github.io/kgw-docs">kgw</a>.</p>
+<section id="Load-the-package">
+<h2>Load the package<a class="headerlink" href="#Load-the-package" title="Link to this heading"></a></h2>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">kgw</span>
+</pre></div>
+</div>
+</div>
+</section>
+<section id="Define-a-minimal-workflow">
+<h2>Define a minimal workflow<a class="headerlink" href="#Define-a-minimal-workflow" title="Link to this heading"></a></h2>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">hald</span> <span class="o">=</span> <span class="n">kgw</span><span class="o">.</span><span class="n">biomedicine</span><span class="o">.</span><span class="n">Hald</span><span class="p">(</span><span class="n">version</span><span class="o">=</span><span class="s2">&quot;latest&quot;</span><span class="p">,</span> <span class="n">workdir</span><span class="o">=</span><span class="s2">&quot;a_user_chosen_directory&quot;</span><span class="p">)</span>
+<span class="n">hald</span><span class="o">.</span><span class="n">to_graphml</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</section>
+<section id="Run-it">
+<h2>Run it<a class="headerlink" href="#Run-it" title="Link to this heading"></a></h2>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">status</span> <span class="o">=</span> <span class="n">kgw</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">hald</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Log of performed tasks
+======================
+
+2024-10-11 01:18:32  <span class="ansi-blue-intense-fg">Started</span>   CreateDirectory(dirpath=a_user_chosen_directory/hald_v6/downloads)
+2024-10-11 01:18:32  <span class="ansi-blue-intense-fg">Started</span>   CreateDirectory(dirpath=a_user_chosen_directory/hald_v6/results)
+2024-10-11 01:18:32  <span class="ansi-green-intense-fg">Finished</span>  CreateDirectory(dirpath=a_user_chosen_directory/hald_v6/downloads)
+2024-10-11 01:18:32  <span class="ansi-green-intense-fg">Finished</span>  CreateDirectory(dirpath=a_user_chosen_directory/hald_v6/results)
+2024-10-11 01:18:32  <span class="ansi-blue-intense-fg">Started</span>   DownloadFile(dirpath=a_user_chosen_directory/hald_v6/downloads, filename=Relation_Info.json)
+2024-10-11 01:18:32  <span class="ansi-blue-intense-fg">Started</span>   DownloadFile(dirpath=a_user_chosen_directory/hald_v6/downloads, filename=Entity_Info.json)
+2024-10-11 01:19:46  <span class="ansi-green-intense-fg">Finished</span>  DownloadFile(dirpath=a_user_chosen_directory/hald_v6/downloads, filename=Relation_Info.json)
+2024-10-11 01:19:46  <span class="ansi-blue-intense-fg">Started</span>   FetchEdgesFile(dirpath=a_user_chosen_directory/hald_v6, version=6)
+2024-10-11 01:19:46  <span class="ansi-green-intense-fg">Finished</span>  FetchEdgesFile(dirpath=a_user_chosen_directory/hald_v6, version=6)
+2024-10-11 01:21:44  <span class="ansi-green-intense-fg">Finished</span>  DownloadFile(dirpath=a_user_chosen_directory/hald_v6/downloads, filename=Entity_Info.json)
+2024-10-11 01:21:44  <span class="ansi-blue-intense-fg">Started</span>   FetchNodesFile(dirpath=a_user_chosen_directory/hald_v6, version=6)
+2024-10-11 01:21:44  <span class="ansi-green-intense-fg">Finished</span>  FetchNodesFile(dirpath=a_user_chosen_directory/hald_v6, version=6)
+2024-10-11 01:21:44  <span class="ansi-blue-intense-fg">Started</span>   CreateSqliteFile(dirpath=a_user_chosen_directory/hald_v6, version=6)
+2024-10-11 01:22:19  <span class="ansi-green-intense-fg">Finished</span>  CreateSqliteFile(dirpath=a_user_chosen_directory/hald_v6, version=6)
+2024-10-11 01:22:19  <span class="ansi-blue-intense-fg">Started</span>   CreateGraphMlFile(dirpath=a_user_chosen_directory/hald_v6, version=6)
+2024-10-11 01:23:02  <span class="ansi-green-intense-fg">Finished</span>  CreateGraphMlFile(dirpath=a_user_chosen_directory/hald_v6, version=6)
+
+
+Summary of workflow results
+===========================
+
+Scheduled 8 tasks of which:
+* 8 ran successfully:
+    - 2 CreateDirectory(dirpath=a_user_chosen_directory/hald_v6/downloads,a_user_chosen_directory/hald_v6/results)
+    - 1 CreateGraphMlFile(dirpath=a_user_chosen_directory/hald_v6, version=6)
+    - 1 CreateSqliteFile(dirpath=a_user_chosen_directory/hald_v6, version=6)
+    - 2 DownloadFile(dirpath=a_user_chosen_directory/hald_v6/downloads, filename=Entity_Info.json) and DownloadFile(dirpath=a_user_chosen_directory/hald_v6/downloads, filename=Relation_Info.json)
+    - 1 FetchEdgesFile(dirpath=a_user_chosen_directory/hald_v6, version=6)
+    ...
+
+This progress looks :) because there were no failed tasks or missing dependencies
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;The workflow fully succeeded:&quot;</span><span class="p">,</span> <span class="n">status</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+The workflow fully succeeded: True
+</pre></div></div>
+</div>
+</section>
+<section id="Inspect-the-results">
+<h2>Inspect the results<a class="headerlink" href="#Inspect-the-results" title="Link to this heading"></a></h2>
+<p>Running the workflow generates several directories and files within the user-defined working directory.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">os</span>
+
+<span class="k">def</span> <span class="nf">inspect_directory</span><span class="p">(</span><span class="n">path</span><span class="p">):</span>
+    <span class="n">RED</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="se">\033</span><span class="s2">[91m&quot;</span>
+    <span class="n">GREEN</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="se">\033</span><span class="s2">[92m&quot;</span>
+    <span class="n">RESET</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="se">\033</span><span class="s2">[0m&quot;</span>
+    <span class="k">for</span> <span class="n">root</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">files</span> <span class="ow">in</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">walk</span><span class="p">(</span><span class="n">path</span><span class="p">)):</span>
+        <span class="n">dir_name</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">basename</span><span class="p">(</span><span class="n">root</span><span class="p">)</span>
+        <span class="n">level</span> <span class="o">=</span> <span class="n">root</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">count</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">sep</span><span class="p">)</span>
+        <span class="n">color</span> <span class="o">=</span> <span class="n">RED</span> <span class="k">if</span> <span class="n">dir_name</span> <span class="o">==</span> <span class="s2">&quot;downloads&quot;</span> <span class="k">else</span> <span class="n">GREEN</span>
+        <span class="n">dir_indent</span> <span class="o">=</span> <span class="s1">&#39; &#39;</span> <span class="o">*</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">level</span>
+        <span class="n">file_indent</span> <span class="o">=</span> <span class="s1">&#39; &#39;</span> <span class="o">*</span> <span class="mi">2</span> <span class="o">*</span> <span class="p">(</span><span class="n">level</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">dir_indent</span><span class="si">}{</span><span class="n">dir_name</span><span class="si">}</span><span class="s2">/&quot;</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">file_name</span> <span class="ow">in</span> <span class="n">files</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">file_indent</span><span class="si">}{</span><span class="n">color</span><span class="si">}{</span><span class="n">file_name</span><span class="si">}{</span><span class="n">RESET</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="n">inspect_directory</span><span class="p">(</span><span class="s2">&quot;a_user_chosen_directory&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+a_user_chosen_directory/
+  hald_v6/
+    downloads/
+      <span class="ansi-red-intense-fg">Entity_Info.json</span>
+      <span class="ansi-red-intense-fg">Relation_Info.json</span>
+    results/
+      <span class="ansi-green-intense-fg">kg.graphml</span>
+      <span class="ansi-green-intense-fg">kg.sqlite</span>
+</pre></div></div>
+</div>
+</section>
+<section id="Interpret-them">
+<h2>Interpret them<a class="headerlink" href="#Interpret-them" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p>The workflow definition at the beginning means that the knowledge graph of the project HALD should be converted to a GraphML file. This requires that the original files are downloaded from the project’s web repository and then converted step by step into the desired output format.</p></li>
+<li><p>Running the workflow auto-generates a directory structure in the user-defined working directory <code class="docutils literal notranslate"><span class="pre">a_user_chosen_directory</span></code>. First there is a subdirectory for the project (HALD) in its chosen version (“latest” = version 6 at time of writing) named <code class="docutils literal notranslate"><span class="pre">hald_v6</span></code>, so that no collisions between projects or versions can happen. Each directory of such a kind then has two further subdirectories to separate fetched from generated files:</p>
+<ul>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">downloads</span></code> directory contains all files fetched from the project’s web repository in unmodified form. In this case these are two JSON files shown in red. The number and types of files varies between projects because there is no widely accepted standard for how to encode a knowledge graph.</p></li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">results</span></code> directory contains all files derived from the raw downloads. In this case these are two files shown in green, although only one output was specified in the workflow in the beginning.</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">kg.sqlite</span></code> is a file-based SQLite database, which serves as intermediate format that is used as common basis for all conversions and analyses supported by this package. For this reason, it has to be generated before producing any other outputs.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">kg.graphml</span></code> is the HALD knowledge graph in the desired output format <a class="reference external" href="https://en.wikipedia.org/wiki/GraphML">GraphML</a>.</p></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>It is possible to define a larger workflow that can include multiple projects, versions and output formats. Internally, the Python package <a class="reference external" href="https://github.com/spotify/luigi">luigi</a> is used to build a dependency graph, which contains all tasks that need to be run in order to produce the desired output files. The local inputs and outputs of each task along the way are well defined, so the scheduler can automatically run them as early as possible and often in parallel. For example, all
+downloads are independent, so they don’t need to wait for each other, but some downstream conversions require multiple input files, so they have to wait for a specific subset of downloads or other conversions to be finished. The overall process can be tracked through messages that are written whenever a task starts or is finished. If everything worked, the <code class="docutils literal notranslate"><span class="pre">run</span></code> function returns <code class="docutils literal notranslate"><span class="pre">True</span></code>. If some part failed, e.g. due to a failed web connection, the other parts are attempted to be finished
+as far as possible, but a <code class="docutils literal notranslate"><span class="pre">False</span></code> is returned to make clear that something is missing. The workflow can then be restarted and will not begin again from zero, but rather will only run tasks that have not produced their local outputs yet. Some work may be lost anyways, e.g. when a specific conversion was interrupted in the middle the progress is usually lost, but downloads will attempt to continue from partial files.</p></li>
+</ul>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="../../rst/examples.html" class="btn btn-neutral float-left" title="Examples" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="detailed.html" class="btn btn-neutral float-right" title="Detailed example" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, Robert Haas.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

@@ -1,0 +1,508 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>kgw.biomedicine._ckg &mdash; kgw 0.1.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=fa44fd50" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=19f00094" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/graphviz.css?v=fd3f3429" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/custom.css?v=2cff78c4" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../../../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../../../_static/documentation_options.js?v=01f34227"></script>
+        <script src="../../../_static/doctools.js?v=9a2dae69"></script>
+        <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../index.html">
+            
+              <img src="../../../_static/kgw.svg" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../rst/package_references.html">Package References</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../rst/installation.html">Installation Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../rst/examples.html">Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../autoapi/index.html">API Reference</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">kgw</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">kgw.biomedicine._ckg</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for kgw.biomedicine._ckg</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">csv</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">sqlite3</span>
+
+<span class="kn">import</span> <span class="nn">luigi</span>
+<span class="kn">import</span> <span class="nn">orjson</span>
+
+<span class="kn">from</span> <span class="nn">..</span> <span class="kn">import</span> <span class="n">_shared</span>
+<span class="kn">from</span> <span class="nn">.._shared.extract</span> <span class="kn">import</span> <span class="n">is_informative_value</span>
+
+
+<span class="k">class</span> <span class="nc">MetadataFetcher</span><span class="p">:</span>
+    <span class="n">dataset_id</span> <span class="o">=</span> <span class="s2">&quot;mrcf7f4tc2&quot;</span>
+    <span class="n">_cached_values</span> <span class="o">=</span> <span class="p">{}</span>
+
+    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">get_versions</span><span class="p">(</span><span class="bp">cls</span><span class="p">):</span>
+        <span class="c1"># Memorize</span>
+        <span class="n">key</span> <span class="o">=</span> <span class="s2">&quot;versions&quot;</span>
+        <span class="k">if</span> <span class="n">key</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">cls</span><span class="o">.</span><span class="n">_cached_values</span><span class="p">:</span>
+            <span class="bp">cls</span><span class="o">.</span><span class="n">_cached_values</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">_shared</span><span class="o">.</span><span class="n">extract</span><span class="o">.</span><span class="n">get_versions_from_mendeley</span><span class="p">(</span>
+                <span class="bp">cls</span><span class="o">.</span><span class="n">dataset_id</span>
+            <span class="p">)</span>
+
+        <span class="c1"># Lookup</span>
+        <span class="n">versions</span> <span class="o">=</span> <span class="bp">cls</span><span class="o">.</span><span class="n">_cached_values</span><span class="p">[</span><span class="n">key</span><span class="p">]</span>
+        <span class="k">return</span> <span class="n">versions</span>
+
+    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">get_metadata</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">version</span><span class="p">):</span>
+        <span class="c1"># Check</span>
+        <span class="n">versions</span> <span class="o">=</span> <span class="bp">cls</span><span class="o">.</span><span class="n">get_versions</span><span class="p">()</span>
+        <span class="k">if</span> <span class="n">version</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">versions</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                <span class="sa">f</span><span class="s1">&#39;Version &quot;</span><span class="si">{</span><span class="n">version</span><span class="si">}</span><span class="s1">&quot; is not valid.</span><span class="se">\n</span><span class="s1">Available options: </span><span class="si">{</span><span class="n">versions</span><span class="si">}</span><span class="s1">&#39;</span>
+            <span class="p">)</span>
+
+        <span class="c1"># Memorize</span>
+        <span class="n">key</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;metadata_</span><span class="si">{</span><span class="n">version</span><span class="si">}</span><span class="s2">&quot;</span>
+        <span class="k">if</span> <span class="n">key</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">cls</span><span class="o">.</span><span class="n">_cached_values</span><span class="p">:</span>
+            <span class="bp">cls</span><span class="o">.</span><span class="n">_cached_values</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">_shared</span><span class="o">.</span><span class="n">extract</span><span class="o">.</span><span class="n">get_metadata_from_mendeley</span><span class="p">(</span>
+                <span class="bp">cls</span><span class="o">.</span><span class="n">dataset_id</span><span class="p">,</span> <span class="n">version</span>
+            <span class="p">)</span>
+
+        <span class="c1"># Lookup</span>
+        <span class="n">metadata</span> <span class="o">=</span> <span class="bp">cls</span><span class="o">.</span><span class="n">_cached_values</span><span class="p">[</span><span class="n">key</span><span class="p">]</span>
+        <span class="k">return</span> <span class="n">metadata</span>
+
+
+<span class="k">class</span> <span class="nc">FetchNeo4jDumpFile</span><span class="p">(</span><span class="n">_shared</span><span class="o">.</span><span class="n">tasks</span><span class="o">.</span><span class="n">ReportingTask</span><span class="p">):</span>
+    <span class="n">dirpath</span> <span class="o">=</span> <span class="n">luigi</span><span class="o">.</span><span class="n">Parameter</span><span class="p">()</span>
+    <span class="n">version</span> <span class="o">=</span> <span class="n">luigi</span><span class="o">.</span><span class="n">Parameter</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">subdirpath</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">dirpath</span><span class="p">,</span> <span class="s2">&quot;downloads&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">metadata</span> <span class="o">=</span> <span class="n">MetadataFetcher</span><span class="o">.</span><span class="n">get_metadata</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">version</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_detect_filename</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="c1"># The filename is slightly different for different versions, hence it has to be detected</span>
+        <span class="k">for</span> <span class="n">candidate</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">metadata</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">candidate</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s2">&quot;.dump&quot;</span><span class="p">):</span>
+                <span class="k">return</span> <span class="n">candidate</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+            <span class="s2">&quot;Could not identify the Neo4j dump file that contains the knowledge graph.&quot;</span>
+        <span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">requires</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">filename</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_detect_filename</span><span class="p">()</span>
+        <span class="n">url</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">metadata</span><span class="p">[</span><span class="n">filename</span><span class="p">][</span><span class="s2">&quot;url&quot;</span><span class="p">]</span>
+        <span class="n">sha256</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">metadata</span><span class="p">[</span><span class="n">filename</span><span class="p">][</span><span class="s2">&quot;sha256&quot;</span><span class="p">]</span>
+        <span class="k">return</span> <span class="n">_shared</span><span class="o">.</span><span class="n">tasks</span><span class="o">.</span><span class="n">DownloadFile</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">subdirpath</span><span class="p">,</span> <span class="n">filename</span><span class="p">,</span> <span class="n">url</span><span class="p">,</span> <span class="n">sha256</span><span class="o">=</span><span class="n">sha256</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">output</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">input</span><span class="p">()</span>
+
+
+<span class="k">class</span> <span class="nc">FetchNeo4jApocFile</span><span class="p">(</span><span class="n">_shared</span><span class="o">.</span><span class="n">tasks</span><span class="o">.</span><span class="n">ReportingTask</span><span class="p">):</span>
+    <span class="n">dirpath</span> <span class="o">=</span> <span class="n">luigi</span><span class="o">.</span><span class="n">Parameter</span><span class="p">()</span>
+    <span class="n">version</span> <span class="o">=</span> <span class="n">luigi</span><span class="o">.</span><span class="n">Parameter</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">subdirpath</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">dirpath</span><span class="p">,</span> <span class="s2">&quot;downloads&quot;</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">requires</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">filename</span> <span class="o">=</span> <span class="s2">&quot;apoc-4.4.0.24-all.jar&quot;</span>
+        <span class="n">url</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="s2">&quot;https://github.com/neo4j-contrib/neo4j-apoc-procedures/releases/&quot;</span>
+            <span class="s2">&quot;download/4.4.0.24/apoc-4.4.0.24-all.jar&quot;</span>
+        <span class="p">)</span>
+        <span class="n">md5</span> <span class="o">=</span> <span class="s2">&quot;7c6a702322b0aaf663c25f378cd3494d&quot;</span>
+        <span class="k">return</span> <span class="n">_shared</span><span class="o">.</span><span class="n">tasks</span><span class="o">.</span><span class="n">DownloadFile</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">subdirpath</span><span class="p">,</span> <span class="n">filename</span><span class="p">,</span> <span class="n">url</span><span class="p">,</span> <span class="n">md5</span><span class="o">=</span><span class="n">md5</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">output</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">input</span><span class="p">()</span>
+
+
+<span class="k">class</span> <span class="nc">ExportNeo4jToCsvFiles</span><span class="p">(</span><span class="n">_shared</span><span class="o">.</span><span class="n">tasks</span><span class="o">.</span><span class="n">ReportingTask</span><span class="p">):</span>
+    <span class="n">dirpath</span> <span class="o">=</span> <span class="n">luigi</span><span class="o">.</span><span class="n">Parameter</span><span class="p">()</span>
+    <span class="n">version</span> <span class="o">=</span> <span class="n">luigi</span><span class="o">.</span><span class="n">Parameter</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">subdirpath</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">dirpath</span><span class="p">,</span> <span class="s2">&quot;results&quot;</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">requires</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="p">{</span>
+            <span class="s2">&quot;neo4j_database_dump&quot;</span><span class="p">:</span> <span class="n">FetchNeo4jDumpFile</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">dirpath</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">version</span><span class="p">),</span>
+            <span class="s2">&quot;neo4j_apoc_plugin&quot;</span><span class="p">:</span> <span class="n">FetchNeo4jApocFile</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">dirpath</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">version</span><span class="p">),</span>
+        <span class="p">}</span>
+
+    <span class="k">def</span> <span class="nf">output</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="p">{</span>
+            <span class="s2">&quot;nodes_file&quot;</span><span class="p">:</span> <span class="n">luigi</span><span class="o">.</span><span class="n">LocalTarget</span><span class="p">(</span>
+                <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">subdirpath</span><span class="p">,</span> <span class="s2">&quot;neo4j_nodes.csv&quot;</span><span class="p">)</span>
+            <span class="p">),</span>
+            <span class="s2">&quot;edges_file&quot;</span><span class="p">:</span> <span class="n">luigi</span><span class="o">.</span><span class="n">LocalTarget</span><span class="p">(</span>
+                <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">subdirpath</span><span class="p">,</span> <span class="s2">&quot;neo4j_edges.csv&quot;</span><span class="p">)</span>
+            <span class="p">),</span>
+        <span class="p">}</span>
+
+    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">dw</span> <span class="o">=</span> <span class="n">DockerWrapper</span><span class="p">()</span>
+
+        <span class="c1"># Check docker installation</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">dw</span><span class="o">.</span><span class="n">test_installation</span><span class="p">():</span>
+            <span class="n">msg</span> <span class="o">=</span> <span class="p">(</span>
+                <span class="s2">&quot;Testing the Docker installation on your system indicated that &quot;</span>
+                <span class="s2">&quot;it does not work as expected on a minimal example. A potential &quot;</span>
+                <span class="s2">&quot;issue can be a missing internet connection for fetching remote &quot;</span>
+                <span class="s2">&quot;Docker images.&quot;</span>
+            <span class="p">)</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+
+        <span class="c1"># Convert .dump to .csv</span>
+        <span class="n">filepath_db</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">input</span><span class="p">()[</span><span class="s2">&quot;neo4j_database_dump&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">path</span>
+        <span class="n">filepath_apoc</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">input</span><span class="p">()[</span><span class="s2">&quot;neo4j_apoc_plugin&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">path</span>
+        <span class="n">dirpath_source</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">filepath_db</span><span class="p">)</span>
+        <span class="n">dirpath_target</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">subdirpath</span>
+        <span class="n">filename_db</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">basename</span><span class="p">(</span><span class="n">filepath_db</span><span class="p">)</span>
+        <span class="n">filename_apoc</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">basename</span><span class="p">(</span><span class="n">filepath_apoc</span><span class="p">)</span>
+        <span class="n">dw</span><span class="o">.</span><span class="n">convert_neo4j_dump_to_csv_files</span><span class="p">(</span>
+            <span class="n">dirpath_source</span><span class="p">,</span> <span class="n">dirpath_target</span><span class="p">,</span> <span class="n">filename_db</span><span class="p">,</span> <span class="n">filename_apoc</span>
+        <span class="p">)</span>
+
+
+<span class="k">class</span> <span class="nc">CreateSqliteFile</span><span class="p">(</span><span class="n">_shared</span><span class="o">.</span><span class="n">tasks</span><span class="o">.</span><span class="n">ReportingTask</span><span class="p">):</span>
+    <span class="n">dirpath</span> <span class="o">=</span> <span class="n">luigi</span><span class="o">.</span><span class="n">Parameter</span><span class="p">()</span>
+    <span class="n">version</span> <span class="o">=</span> <span class="n">luigi</span><span class="o">.</span><span class="n">Parameter</span><span class="p">()</span>
+    <span class="n">batch_size</span> <span class="o">=</span> <span class="n">luigi</span><span class="o">.</span><span class="n">IntParameter</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="mi">10_000</span><span class="p">,</span> <span class="n">significant</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">subdirpath</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">dirpath</span><span class="p">,</span> <span class="s2">&quot;results&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">filepath</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">subdirpath</span><span class="p">,</span> <span class="s2">&quot;kg.sqlite&quot;</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">requires</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">tasks</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s2">&quot;subdirpath&quot;</span><span class="p">:</span> <span class="n">_shared</span><span class="o">.</span><span class="n">tasks</span><span class="o">.</span><span class="n">CreateDirectory</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">subdirpath</span><span class="p">),</span>
+            <span class="s2">&quot;csv_files&quot;</span><span class="p">:</span> <span class="n">ExportNeo4jToCsvFiles</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">dirpath</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">version</span><span class="p">),</span>
+        <span class="p">}</span>
+        <span class="k">return</span> <span class="n">tasks</span>
+
+    <span class="k">def</span> <span class="nf">output</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">luigi</span><span class="o">.</span><span class="n">LocalTarget</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">filepath</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">with</span> <span class="n">_shared</span><span class="o">.</span><span class="n">tasks</span><span class="o">.</span><span class="n">temp_output_path</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">filepath</span><span class="p">)</span> <span class="k">as</span> <span class="n">sqlite_filepath</span><span class="p">:</span>
+            <span class="k">with</span> <span class="n">sqlite3</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">sqlite_filepath</span><span class="p">)</span> <span class="k">as</span> <span class="n">conn</span><span class="p">:</span>
+                <span class="n">cursor</span> <span class="o">=</span> <span class="n">conn</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span>
+                <span class="n">_shared</span><span class="o">.</span><span class="n">transform</span><span class="o">.</span><span class="n">create_sql_schema</span><span class="p">(</span><span class="n">cursor</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_insert_nodes</span><span class="p">(</span><span class="n">conn</span><span class="p">,</span> <span class="n">cursor</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_insert_edges</span><span class="p">(</span><span class="n">conn</span><span class="p">,</span> <span class="n">cursor</span><span class="p">)</span>
+                <span class="n">conn</span><span class="o">.</span><span class="n">commit</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_remove_input_csv_files</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="nf">_insert_nodes</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">conn</span><span class="p">,</span> <span class="n">cursor</span><span class="p">):</span>
+        <span class="n">nodes_filepath</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">input</span><span class="p">()[</span><span class="s2">&quot;csv_files&quot;</span><span class="p">][</span><span class="s2">&quot;nodes_file&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">path</span>
+        <span class="n">sql_cmd</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">            INSERT INTO nodes (id, type, properties)</span>
+<span class="s2">            VALUES (?, ?, ?)</span>
+<span class="s2">        &quot;&quot;&quot;</span>
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">nodes_filepath</span><span class="p">,</span> <span class="s2">&quot;r&quot;</span><span class="p">,</span> <span class="n">newline</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+            <span class="n">reader</span> <span class="o">=</span> <span class="n">csv</span><span class="o">.</span><span class="n">reader</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">delimiter</span><span class="o">=</span><span class="s2">&quot;,&quot;</span><span class="p">)</span>
+            <span class="n">columns</span> <span class="o">=</span> <span class="nb">next</span><span class="p">(</span><span class="n">reader</span><span class="p">)</span>
+            <span class="n">batch</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">reader</span><span class="p">:</span>
+                <span class="n">node_id</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">row</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+                <span class="n">node_type</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">row</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+                <span class="n">node_properties</span> <span class="o">=</span> <span class="p">{</span>
+                    <span class="nb">str</span><span class="p">(</span><span class="n">key</span><span class="p">):</span> <span class="n">val</span>
+                    <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">val</span> <span class="ow">in</span> <span class="n">orjson</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">row</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span><span class="o">.</span><span class="n">items</span><span class="p">()</span>
+                    <span class="k">if</span> <span class="n">is_informative_value</span><span class="p">(</span><span class="n">val</span><span class="p">)</span>
+                <span class="p">}</span>
+                <span class="n">node_properties_str</span> <span class="o">=</span> <span class="n">orjson</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">node_properties</span><span class="p">)</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s2">&quot;utf-8&quot;</span><span class="p">)</span>
+                <span class="n">node</span> <span class="o">=</span> <span class="p">(</span><span class="n">node_id</span><span class="p">,</span> <span class="n">node_type</span><span class="p">,</span> <span class="n">node_properties_str</span><span class="p">)</span>
+                <span class="n">batch</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">node</span><span class="p">)</span>
+                <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">batch</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="bp">self</span><span class="o">.</span><span class="n">batch_size</span><span class="p">:</span>
+                    <span class="n">cursor</span><span class="o">.</span><span class="n">executemany</span><span class="p">(</span><span class="n">sql_cmd</span><span class="p">,</span> <span class="n">batch</span><span class="p">)</span>
+                    <span class="n">batch</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="k">if</span> <span class="n">batch</span><span class="p">:</span>
+                <span class="n">cursor</span><span class="o">.</span><span class="n">executemany</span><span class="p">(</span><span class="n">sql_cmd</span><span class="p">,</span> <span class="n">batch</span><span class="p">)</span>
+        <span class="n">conn</span><span class="o">.</span><span class="n">commit</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="nf">_insert_edges</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">conn</span><span class="p">,</span> <span class="n">cursor</span><span class="p">):</span>
+        <span class="n">edges_filepath</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">input</span><span class="p">()[</span><span class="s2">&quot;csv_files&quot;</span><span class="p">][</span><span class="s2">&quot;edges_file&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">path</span>
+        <span class="n">sql_cmd</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">            INSERT INTO edges (source_id, target_id, type, properties)</span>
+<span class="s2">            VALUES (?, ?, ?, ?)</span>
+<span class="s2">        &quot;&quot;&quot;</span>
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">edges_filepath</span><span class="p">,</span> <span class="s2">&quot;r&quot;</span><span class="p">,</span> <span class="n">newline</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+            <span class="n">reader</span> <span class="o">=</span> <span class="n">csv</span><span class="o">.</span><span class="n">reader</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">delimiter</span><span class="o">=</span><span class="s2">&quot;,&quot;</span><span class="p">)</span>
+            <span class="n">columns</span> <span class="o">=</span> <span class="nb">next</span><span class="p">(</span><span class="n">reader</span><span class="p">)</span>
+            <span class="n">batch</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">reader</span><span class="p">:</span>
+                <span class="n">source_id</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">row</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+                <span class="n">target_id</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">row</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+                <span class="n">edge_type</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">row</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
+                <span class="n">edge_properties</span> <span class="o">=</span> <span class="p">{</span>
+                    <span class="nb">str</span><span class="p">(</span><span class="n">key</span><span class="p">):</span> <span class="n">val</span>
+                    <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">val</span> <span class="ow">in</span> <span class="n">orjson</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">row</span><span class="p">[</span><span class="mi">3</span><span class="p">])</span><span class="o">.</span><span class="n">items</span><span class="p">()</span>
+                    <span class="k">if</span> <span class="n">is_informative_value</span><span class="p">(</span><span class="n">val</span><span class="p">)</span>
+                <span class="p">}</span>
+                <span class="n">edge_properties_str</span> <span class="o">=</span> <span class="n">orjson</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">edge_properties</span><span class="p">)</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s2">&quot;utf-8&quot;</span><span class="p">)</span>
+                <span class="n">edge</span> <span class="o">=</span> <span class="p">(</span><span class="n">source_id</span><span class="p">,</span> <span class="n">target_id</span><span class="p">,</span> <span class="n">edge_type</span><span class="p">,</span> <span class="n">edge_properties_str</span><span class="p">)</span>
+                <span class="n">batch</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">edge</span><span class="p">)</span>
+                <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">batch</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="bp">self</span><span class="o">.</span><span class="n">batch_size</span><span class="p">:</span>
+                    <span class="n">cursor</span><span class="o">.</span><span class="n">executemany</span><span class="p">(</span><span class="n">sql_cmd</span><span class="p">,</span> <span class="n">batch</span><span class="p">)</span>
+                    <span class="n">batch</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="k">if</span> <span class="n">batch</span><span class="p">:</span>
+                <span class="n">cursor</span><span class="o">.</span><span class="n">executemany</span><span class="p">(</span><span class="n">sql_cmd</span><span class="p">,</span> <span class="n">batch</span><span class="p">)</span>
+        <span class="n">conn</span><span class="o">.</span><span class="n">commit</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="nf">_remove_input_csv_files</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">nodes_filepath</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">input</span><span class="p">()[</span><span class="s2">&quot;csv_files&quot;</span><span class="p">][</span><span class="s2">&quot;nodes_file&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">path</span>
+        <span class="n">edges_filepath</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">input</span><span class="p">()[</span><span class="s2">&quot;csv_files&quot;</span><span class="p">][</span><span class="s2">&quot;edges_file&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">path</span>
+        <span class="k">for</span> <span class="n">filepath</span> <span class="ow">in</span> <span class="p">(</span><span class="n">nodes_filepath</span><span class="p">,</span> <span class="n">edges_filepath</span><span class="p">):</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">os</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">filepath</span><span class="p">)</span>
+            <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
+                <span class="k">pass</span>
+
+
+<span class="k">class</span> <span class="nc">DockerWrapper</span><span class="p">:</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="kn">import</span> <span class="nn">docker</span>
+
+            <span class="bp">self</span><span class="o">.</span><span class="n">_docker_module</span> <span class="o">=</span> <span class="n">docker</span>
+        <span class="k">except</span> <span class="ne">ImportError</span><span class="p">:</span>
+            <span class="n">msg</span> <span class="o">=</span> <span class="p">(</span>
+                <span class="s2">&quot;This knowledge graph project requires 1) a Docker installation on &quot;</span>
+                <span class="s1">&#39;your operating system and 2) the Python package &quot;docker&quot; for the &#39;</span>
+                <span class="s2">&quot;language bindings, which can be installed with `pip install docker`.&quot;</span>
+            <span class="p">)</span>
+            <span class="k">raise</span> <span class="ne">ImportError</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">test_installation</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="c1"># Definition</span>
+            <span class="n">container_name</span> <span class="o">=</span> <span class="s2">&quot;hello-world&quot;</span>
+            <span class="n">expected_message</span> <span class="o">=</span> <span class="sa">b</span><span class="s2">&quot;Hello from Docker!&quot;</span>
+            <span class="c1"># Run</span>
+            <span class="n">client</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_docker_module</span><span class="o">.</span><span class="n">from_env</span><span class="p">()</span>
+            <span class="n">client</span><span class="o">.</span><span class="n">images</span><span class="o">.</span><span class="n">pull</span><span class="p">(</span><span class="n">container_name</span><span class="p">)</span>
+            <span class="n">container</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">containers</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">container_name</span><span class="p">,</span> <span class="n">detach</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+            <span class="n">works</span> <span class="o">=</span> <span class="n">expected_message</span> <span class="ow">in</span> <span class="n">container</span><span class="o">.</span><span class="n">logs</span><span class="p">()</span>
+            <span class="c1"># Cleanup</span>
+            <span class="n">container</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">force</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+            <span class="n">client</span><span class="o">.</span><span class="n">images</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">container_name</span><span class="p">,</span> <span class="n">force</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+            <span class="n">client</span><span class="o">.</span><span class="n">containers</span><span class="o">.</span><span class="n">prune</span><span class="p">()</span>
+            <span class="n">client</span><span class="o">.</span><span class="n">images</span><span class="o">.</span><span class="n">prune</span><span class="p">()</span>
+            <span class="n">client</span><span class="o">.</span><span class="n">volumes</span><span class="o">.</span><span class="n">prune</span><span class="p">()</span>
+        <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
+            <span class="n">works</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="k">return</span> <span class="n">works</span>
+
+    <span class="k">def</span> <span class="nf">run_command</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">container</span><span class="p">,</span> <span class="n">command</span><span class="p">):</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">command</span><span class="p">)</span>
+        <span class="n">exit_code</span><span class="p">,</span> <span class="n">output</span> <span class="o">=</span> <span class="n">container</span><span class="o">.</span><span class="n">exec_run</span><span class="p">(</span><span class="n">command</span><span class="p">)</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="n">output</span><span class="o">.</span><span class="n">decode</span><span class="p">()</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">()</span>
+        <span class="k">return</span> <span class="n">result</span>
+
+    <span class="k">def</span> <span class="nf">stop_and_remove_container</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">client</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_docker_module</span><span class="o">.</span><span class="n">from_env</span><span class="p">()</span>
+            <span class="n">container</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">containers</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">container</span><span class="o">.</span><span class="n">status</span> <span class="o">==</span> <span class="s2">&quot;running&quot;</span><span class="p">:</span>
+                <span class="n">container</span><span class="o">.</span><span class="n">stop</span><span class="p">()</span>
+            <span class="n">container</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">force</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+            <span class="n">client</span><span class="o">.</span><span class="n">containers</span><span class="o">.</span><span class="n">prune</span><span class="p">()</span>
+            <span class="n">client</span><span class="o">.</span><span class="n">images</span><span class="o">.</span><span class="n">prune</span><span class="p">()</span>
+            <span class="n">client</span><span class="o">.</span><span class="n">volumes</span><span class="o">.</span><span class="n">prune</span><span class="p">()</span>
+        <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
+            <span class="k">pass</span>
+
+    <span class="k">def</span> <span class="nf">convert_neo4j_dump_to_csv_files</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">dirpath_source</span><span class="p">,</span> <span class="n">dirpath_target</span><span class="p">,</span> <span class="n">filename_db</span><span class="p">,</span> <span class="n">filename_apoc</span>
+    <span class="p">):</span>
+        <span class="c1"># APOC library provides CSV export: https://neo4j.com/labs/apoc/4.4/overview/apoc.export</span>
+
+        <span class="c1"># Temporary directory for output to prevent side effects such as changed permissions</span>
+        <span class="n">dirpath_target_temp</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">dirpath_target</span><span class="p">,</span> <span class="s2">&quot;tempdir_for_docker&quot;</span><span class="p">)</span>
+        <span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="n">dirpath_target_temp</span><span class="p">,</span> <span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+        <span class="c1"># Fetch and run the Neo4j v4.4 Docker container</span>
+        <span class="n">unique_container_name</span> <span class="o">=</span> <span class="s2">&quot;kgw_neo4j_198bc9da7d&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">stop_and_remove_container</span><span class="p">(</span><span class="n">unique_container_name</span><span class="p">)</span>
+        <span class="n">client</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_docker_module</span><span class="o">.</span><span class="n">from_env</span><span class="p">()</span>
+        <span class="n">container</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">containers</span><span class="o">.</span><span class="n">run</span><span class="p">(</span>
+            <span class="n">image</span><span class="o">=</span><span class="s2">&quot;neo4j:4.4&quot;</span><span class="p">,</span>
+            <span class="n">name</span><span class="o">=</span><span class="n">unique_container_name</span><span class="p">,</span>
+            <span class="n">detach</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+            <span class="n">volumes</span><span class="o">=</span><span class="p">{</span>
+                <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="n">dirpath_source</span><span class="p">):</span> <span class="p">{</span><span class="s2">&quot;bind&quot;</span><span class="p">:</span> <span class="s2">&quot;/source&quot;</span><span class="p">,</span> <span class="s2">&quot;mode&quot;</span><span class="p">:</span> <span class="s2">&quot;rw&quot;</span><span class="p">},</span>
+                <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="n">dirpath_target_temp</span><span class="p">):</span> <span class="p">{</span>
+                    <span class="s2">&quot;bind&quot;</span><span class="p">:</span> <span class="s2">&quot;/target&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;mode&quot;</span><span class="p">:</span> <span class="s2">&quot;rw&quot;</span><span class="p">,</span>
+                <span class="p">},</span>
+            <span class="p">},</span>
+            <span class="n">working_dir</span><span class="o">=</span><span class="s2">&quot;/target&quot;</span><span class="p">,</span>
+            <span class="n">entrypoint</span><span class="o">=</span><span class="s2">&quot;tail -f /dev/null&quot;</span><span class="p">,</span>
+        <span class="p">)</span>
+
+        <span class="c1"># Convert the .dump file to two .csv files</span>
+        <span class="n">commands</span> <span class="o">=</span> <span class="p">[</span>
+            <span class="c1"># Configure Neo4j for the import</span>
+<span class="w">            </span><span class="sd">&#39;&#39;&#39;sh -c &quot;echo &#39;dbms.allow_upgrade=true&#39; &gt;&gt; /var/lib/neo4j/conf/neo4j.conf&quot;&#39;&#39;&#39;</span><span class="p">,</span>
+<span class="w">            </span><span class="sd">&#39;&#39;&#39;sh -c &quot;echo &#39;dbms.security.procedures.allowlist=apoc.*&#39; &gt;&gt; /var/lib/neo4j/conf/neo4j.conf&quot;&#39;&#39;&#39;</span><span class="p">,</span>
+<span class="w">            </span><span class="sd">&#39;&#39;&#39;sh -c &quot;echo &#39;dbms.security.procedures.unrestricted=apoc.*&#39; &gt;&gt; /var/lib/neo4j/conf/neo4j.conf&quot;&#39;&#39;&#39;</span><span class="p">,</span>
+<span class="w">            </span><span class="sd">&#39;&#39;&#39;sh -c &quot;echo &#39;apoc.export.file.enabled=true&#39; &gt;&gt; /var/lib/neo4j/conf/neo4j.conf&quot;&#39;&#39;&#39;</span><span class="p">,</span>
+<span class="w">            </span><span class="sd">&#39;&#39;&#39;sh -c &quot;neo4j-admin set-initial-password correcthorsebatterystaple&quot;&#39;&#39;&#39;</span><span class="p">,</span>
+            <span class="c1"># Make APOC extension available to Neo4j</span>
+            <span class="sa">f</span><span class="s1">&#39;&#39;&#39;sh -c &quot;cp /source/</span><span class="si">{</span><span class="n">filename_apoc</span><span class="si">}</span><span class="s1"> /var/lib/neo4j/plugins&quot;&#39;&#39;&#39;</span><span class="p">,</span>
+            <span class="c1"># Import the .dump file</span>
+            <span class="sa">f</span><span class="s1">&#39;&#39;&#39;sh -c &quot;neo4j-admin load --from=/source/</span><span class="si">{</span><span class="n">filename_db</span><span class="si">}</span><span class="s1"> --database=neo4j --force&quot;&#39;&#39;&#39;</span><span class="p">,</span>
+            <span class="c1"># Start the database</span>
+<span class="w">            </span><span class="sd">&#39;&#39;&#39;sh -c &quot;rm -rf /var/lib/neo4j/logs &amp;&amp; neo4j start&quot;&#39;&#39;&#39;</span><span class="p">,</span>
+            <span class="c1"># Wait so it is ready</span>
+<span class="w">            </span><span class="sd">&#39;&#39;&#39;sh -c &quot;sleep 360&quot;&#39;&#39;&#39;</span><span class="p">,</span>
+            <span class="c1"># Export a .csv file for nodes</span>
+<span class="w">            </span><span class="sd">&#39;&#39;&#39;cypher-shell -u neo4j -p correcthorsebatterystaple -d neo4j &quot;CALL apoc.export.csv.query(&#39;MATCH (n) RETURN id(n) as id, labels(n)[0] as type, properties(n) as properties&#39;, &#39;nodes.csv&#39;, {})&quot;&#39;&#39;&#39;</span><span class="p">,</span>
+            <span class="c1"># Export a .csv file for edges</span>
+<span class="w">            </span><span class="sd">&#39;&#39;&#39;cypher-shell -u neo4j -p correcthorsebatterystaple -d neo4j &quot;CALL apoc.export.csv.query(&#39;MATCH ()-[r]-&gt;() RETURN id(startNode(r)) as source_id, id(endNode(r)) as target_id, type(r) as type, properties(r) as properties&#39;, &#39;edges.csv&#39;, {})&quot;&#39;&#39;&#39;</span><span class="p">,</span>
+            <span class="c1"># Move the .csv files to the mounted directory to make them available outside the container</span>
+<span class="w">            </span><span class="sd">&#39;&#39;&#39;sh -c &quot;mv /var/lib/neo4j/import/nodes.csv /target&quot;&#39;&#39;&#39;</span><span class="p">,</span>
+<span class="w">            </span><span class="sd">&#39;&#39;&#39;sh -c &quot;mv /var/lib/neo4j/import/edges.csv /target&quot;&#39;&#39;&#39;</span><span class="p">,</span>
+        <span class="p">]</span>
+        <span class="k">for</span> <span class="n">cmd</span> <span class="ow">in</span> <span class="n">commands</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">run_command</span><span class="p">(</span><span class="n">container</span><span class="p">,</span> <span class="n">cmd</span><span class="p">)</span>
+
+        <span class="c1"># Remove the container</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">stop_and_remove_container</span><span class="p">(</span><span class="n">unique_container_name</span><span class="p">)</span>
+
+        <span class="c1"># Move CSV files from temporary to target directory</span>
+        <span class="n">os</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span>
+            <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">dirpath_target_temp</span><span class="p">,</span> <span class="s2">&quot;nodes.csv&quot;</span><span class="p">),</span>
+            <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">dirpath_target</span><span class="p">,</span> <span class="s2">&quot;neo4j_nodes.csv&quot;</span><span class="p">),</span>
+        <span class="p">)</span>
+        <span class="n">os</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span>
+            <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">dirpath_target_temp</span><span class="p">,</span> <span class="s2">&quot;edges.csv&quot;</span><span class="p">),</span>
+            <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">dirpath_target</span><span class="p">,</span> <span class="s2">&quot;neo4j_edges.csv&quot;</span><span class="p">),</span>
+        <span class="p">)</span>
+        <span class="n">os</span><span class="o">.</span><span class="n">rmdir</span><span class="p">(</span><span class="n">dirpath_target_temp</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">container</span>
+
+
+<div class="viewcode-block" id="Ckg">
+<a class="viewcode-back" href="../../../autoapi/kgw/biomedicine/index.html#kgw.biomedicine.Ckg">[docs]</a>
+<span class="k">class</span> <span class="nc">Ckg</span><span class="p">(</span><span class="n">_shared</span><span class="o">.</span><span class="n">base</span><span class="o">.</span><span class="n">Project</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Clinical Knowledge Graph (CKG).</span>
+
+<span class="sd">    References</span>
+<span class="sd">    ----------</span>
+<span class="sd">    - Publication: https://doi.org/10.1038/s41587-021-01145-6</span>
+<span class="sd">    - Website: https://ckg.readthedocs.io</span>
+<span class="sd">    - Code: https://github.com/MannLabs/CKG</span>
+<span class="sd">    - Data: https://doi.org/10.17632/mrcf7f4tc2</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">_label</span> <span class="o">=</span> <span class="s2">&quot;ckg&quot;</span>
+    <span class="n">_MetadataFetcher</span> <span class="o">=</span> <span class="n">MetadataFetcher</span>
+    <span class="n">_CreateSqliteFile</span> <span class="o">=</span> <span class="n">CreateSqliteFile</span>
+    <span class="n">_node_type_to_color</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s2">&quot;Metabolite&quot;</span><span class="p">:</span> <span class="s2">&quot;green&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;Known_variant&quot;</span><span class="p">:</span> <span class="s2">&quot;blue&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;Gene&quot;</span><span class="p">:</span> <span class="s2">&quot;blue&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;Transcript&quot;</span><span class="p">:</span> <span class="s2">&quot;blue&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;Protein&quot;</span><span class="p">:</span> <span class="s2">&quot;blue&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;Modified_protein&quot;</span><span class="p">:</span> <span class="s2">&quot;blue&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;Peptide&quot;</span><span class="p">:</span> <span class="s2">&quot;blue&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;Disease&quot;</span><span class="p">:</span> <span class="s2">&quot;red&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;Pathway&quot;</span><span class="p">:</span> <span class="s2">&quot;red&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;Biological_process&quot;</span><span class="p">:</span> <span class="s2">&quot;red&quot;</span><span class="p">,</span>
+    <span class="p">}</span></div>
+
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, Robert Haas.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

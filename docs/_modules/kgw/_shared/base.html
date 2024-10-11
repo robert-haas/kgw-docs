@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>kgw._shared.base &mdash; kgw 0.1.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=fa44fd50" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=19f00094" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/graphviz.css?v=fd3f3429" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/custom.css?v=2cff78c4" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../../../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../../../_static/documentation_options.js?v=01f34227"></script>
+        <script src="../../../_static/doctools.js?v=9a2dae69"></script>
+        <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../index.html">
+            
+              <img src="../../../_static/kgw.svg" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../rst/package_references.html">Package References</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../rst/installation.html">Installation Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../rst/examples.html">Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../autoapi/index.html">API Reference</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">kgw</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">kgw._shared.base</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for kgw._shared.base</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">logging</span>
+<span class="kn">import</span> <span class="nn">multiprocessing</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">sys</span>
+<span class="kn">import</span> <span class="nn">warnings</span>
+
+<span class="kn">import</span> <span class="nn">luigi</span>
+
+<span class="kn">from</span> <span class="nn">.</span> <span class="kn">import</span> <span class="n">tasks</span>
+
+
+<span class="k">class</span> <span class="nc">Project</span><span class="p">:</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">version</span><span class="p">,</span> <span class="n">workdir</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Initialize a project instance so that tasks can be defined on it.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        version : `str`</span>
+<span class="sd">            Version of the dataset that will be downloaded and processed.</span>
+<span class="sd">            The method :meth:`get_versions` returns all currently available</span>
+<span class="sd">            versions.</span>
+<span class="sd">        workdir : `str`</span>
+<span class="sd">            Path of the working directory in which a unique subdirectory will</span>
+<span class="sd">            be created to hold all downloaded and generated files for</span>
+<span class="sd">            this project and version.</span>
+
+<span class="sd">        Raises</span>
+<span class="sd">        ------</span>
+<span class="sd">        ValueError</span>
+<span class="sd">            Raised if `version` is invalid or unavailable.</span>
+<span class="sd">        TypeError</span>
+<span class="sd">            Raised if `workdir` is not a string.</span>
+
+<span class="sd">        Notes</span>
+<span class="sd">        -----</span>
+<span class="sd">        This class does not automatically download or process any data.</span>
+<span class="sd">        Such tasks first need to be specified by calling the relevant methods</span>
+<span class="sd">        on the project object and then passing it to the function :func:`~kgw.run`</span>
+<span class="sd">        that builds and executes a corresponding workflow.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># Argument processing</span>
+        <span class="n">version</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">version</span><span class="p">)</span>
+        <span class="n">_available_versions</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_versions</span><span class="p">()</span>
+        <span class="k">if</span> <span class="n">version</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="o">==</span> <span class="s2">&quot;latest&quot;</span><span class="p">:</span>
+            <span class="n">version</span> <span class="o">=</span> <span class="n">_available_versions</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+        <span class="k">if</span> <span class="n">version</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">_available_versions</span><span class="p">:</span>
+            <span class="n">msg</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;Version &quot;</span><span class="si">{</span><span class="n">version</span><span class="si">}</span><span class="s1">&quot; is not valid.</span><span class="se">\n</span><span class="s1">Available options: </span><span class="si">{</span><span class="n">_available_versions</span><span class="si">}</span><span class="s1">&#39;</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">workdir</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
+            <span class="n">msg</span> <span class="o">=</span> <span class="s1">&#39;Argument &quot;workdir&quot; needs to be a string.&#39;</span>
+            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+
+        <span class="c1"># Set instance variables</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">version</span> <span class="o">=</span> <span class="n">version</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">dirpath</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">workdir</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_label</span><span class="si">}</span><span class="s2">_v</span><span class="si">{</span><span class="n">version</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_tasks</span> <span class="o">=</span> <span class="p">[]</span>
+
+    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">get_versions</span><span class="p">(</span><span class="bp">cls</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Fetch all currently available versions from the data repository of the project.&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">cls</span><span class="o">.</span><span class="n">_MetadataFetcher</span><span class="o">.</span><span class="n">get_versions</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="nf">to_sqlite</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Convert the knowledge graph to a file-based SQLite database.</span>
+
+<span class="sd">        Generates the output file `kg.sqlite`. This database contains</span>
+<span class="sd">        a unified representation for each knowledge graph, with the</span>
+<span class="sd">        same schema being used for each projects. From this intermediate</span>
+<span class="sd">        format it is possible to generate all other files, using just</span>
+<span class="sd">        one method per output format rather than writing a custom</span>
+<span class="sd">        converter for each project.</span>
+
+<span class="sd">        References</span>
+<span class="sd">        ----------</span>
+<span class="sd">        - `SQLite &lt;https://www.sqlite.org&gt;`__</span>
+<span class="sd">        - `Wikipedia: SQLite &lt;https://en.wikipedia.org/wiki/SQLite&gt;`__</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">tasks</span> <span class="o">=</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">_CreateSqliteFile</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">dirpath</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">version</span><span class="p">)]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_tasks</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">tasks</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">to_statistics</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Determine some statistical properties of the knowledge graph.</span>
+
+<span class="sd">        Generates the output file `statistics.json`. This is a JSON</span>
+<span class="sd">        file that contains data about basic statistics of the elements</span>
+<span class="sd">        in the knowledge graph, such as node, edge and type counts.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">required_tasks</span> <span class="o">=</span> <span class="p">[</span>
+            <span class="n">tasks</span><span class="o">.</span><span class="n">CreateStatisticsFile</span><span class="p">(</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">dirpath</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">version</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_CreateSqliteFile</span>
+            <span class="p">),</span>
+        <span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_tasks</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">required_tasks</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">to_schema</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Determine the schema of the knowledge graph.</span>
+
+<span class="sd">        Generates the output file `schema.html`. This is a standalone</span>
+<span class="sd">        HTML file with an interactive graph visualization of all</span>
+<span class="sd">        entity types in the knowledge graph and the relationship types</span>
+<span class="sd">        by which they are connected.</span>
+
+<span class="sd">        References</span>
+<span class="sd">        ----------</span>
+<span class="sd">        - `Neo4j: Graph modeling guidelines</span>
+<span class="sd">          &lt;https://neo4j.com/docs/getting-started/data-modeling/guide-data-modeling/&gt;`__</span>
+<span class="sd">        - `Memgraph: Graph modeling</span>
+<span class="sd">          &lt;https://memgraph.com/docs/fundamentals/graph-modeling&gt;`__</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">required_tasks</span> <span class="o">=</span> <span class="p">[</span>
+            <span class="n">tasks</span><span class="o">.</span><span class="n">CreateSchemaFile</span><span class="p">(</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">dirpath</span><span class="p">,</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">version</span><span class="p">,</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_node_type_to_color</span><span class="p">,</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_CreateSqliteFile</span><span class="p">,</span>
+            <span class="p">),</span>
+        <span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_tasks</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">required_tasks</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">to_sql</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Convert the knowledge graph to a SQL text file.</span>
+
+<span class="sd">        Generates the output file `kg.sql`. This is a text file with</span>
+<span class="sd">        SQL commands that can be used to import the structure and content</span>
+<span class="sd">        of the knowledge graph into relational database systems such as</span>
+<span class="sd">        MySQL or PostgreSQL.</span>
+
+<span class="sd">        References</span>
+<span class="sd">        ----------</span>
+<span class="sd">        - `StackOverflow: How to import an SQL file using the command line in MySQL?</span>
+<span class="sd">          &lt;https://stackoverflow.com/questions/17666249/how-to-import-an-sql-file-using-the-command-line-in-mysql&gt;`__</span>
+<span class="sd">        - `StackOverflow: Import SQL dump into PostgreSQL database</span>
+<span class="sd">          &lt;https://stackoverflow.com/questions/6842393/import-sql-dump-into-postgresql-database&gt;`__</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">required_tasks</span> <span class="o">=</span> <span class="p">[</span>
+            <span class="n">tasks</span><span class="o">.</span><span class="n">CreateSqlFile</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">dirpath</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">version</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_CreateSqliteFile</span><span class="p">),</span>
+        <span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_tasks</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">required_tasks</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">to_csv</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Convert the knowledge graph to two CSV text files.</span>
+
+<span class="sd">        Generates the output files `kg_nodes.csv` and `kg_edges.csv`.</span>
+
+<span class="sd">        References</span>
+<span class="sd">        ----------</span>
+<span class="sd">        - `Wikipedia: CSV &lt;https://en.wikipedia.org/wiki/Comma-separated_values&gt;`__</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">required_tasks</span> <span class="o">=</span> <span class="p">[</span>
+            <span class="n">tasks</span><span class="o">.</span><span class="n">CreateCsvNodesFile</span><span class="p">(</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">dirpath</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">version</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_CreateSqliteFile</span>
+            <span class="p">),</span>
+            <span class="n">tasks</span><span class="o">.</span><span class="n">CreateCsvEdgesFile</span><span class="p">(</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">dirpath</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">version</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_CreateSqliteFile</span>
+            <span class="p">),</span>
+        <span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_tasks</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">required_tasks</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">to_jsonl</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Convert the knowledge graph to two JSON Lines text files.</span>
+
+<span class="sd">        Generates the output files `kg_nodes.jsonl` and `kg_edges.jsonl`.</span>
+
+<span class="sd">        References</span>
+<span class="sd">        ----------</span>
+<span class="sd">        - `JSONL &lt;https://jsonlines.org&gt;`__</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">required_tasks</span> <span class="o">=</span> <span class="p">[</span>
+            <span class="n">tasks</span><span class="o">.</span><span class="n">CreateJsonlNodesFile</span><span class="p">(</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">dirpath</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">version</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_CreateSqliteFile</span>
+            <span class="p">),</span>
+            <span class="n">tasks</span><span class="o">.</span><span class="n">CreateJsonlEdgesFile</span><span class="p">(</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">dirpath</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">version</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_CreateSqliteFile</span>
+            <span class="p">),</span>
+        <span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_tasks</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">required_tasks</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">to_metta</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">representation</span><span class="o">=</span><span class="s2">&quot;spo&quot;</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Convert the knowledge graph to a MeTTa text file.</span>
+
+<span class="sd">        Generates the output file `kg_spo.metta`, `kg_properties_aggregated.metta` or</span>
+<span class="sd">        `kg_properties_expanded.metta`, depending on the chosen representation.</span>
+
+<span class="sd">        Caution: These representations are still subject to experimentation</span>
+<span class="sd">        and testing. They might change in future versions of this package.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        representation : str</span>
+<span class="sd">            The format used to represent the knowledge graph in the MeTTa language.</span>
+
+<span class="sd">            Available options:</span>
+
+<span class="sd">            - `&quot;spo&quot;`: Semantic triples of the form `(&quot;subject&quot;, &quot;predicate&quot;, &quot;object&quot;)`.</span>
+<span class="sd">              If properties are present in the original knowledge graph, they are</span>
+<span class="sd">              ignored in this representation.</span>
+<span class="sd">            - `&quot;properties_aggregated&quot;`: Properties (=key-value pairs) are represented</span>
+<span class="sd">              by putting each key on a separate line, but each value is ensured to be a</span>
+<span class="sd">              single number or string. This means values that hold a compound data type</span>
+<span class="sd">              like a list or dict are aggregated into one string in JSON string format.</span>
+<span class="sd">              Text identifiers of nodes are reused to create the association with their</span>
+<span class="sd">              properties, while text identifiers of the form &quot;e{cnt}&quot; are introduced for</span>
+<span class="sd">              edges to serve the same purpose.</span>
+<span class="sd">            - `&quot;properties_expanded&quot;`: Properties (=key-value pairs) are represented</span>
+<span class="sd">              by fully expanding their keys and values onto as many lines as required.</span>
+<span class="sd">              Numerical identifiers for nodes and edges are introduced to create the</span>
+<span class="sd">              association between these elements and their properties.</span>
+
+<span class="sd">        References</span>
+<span class="sd">        ----------</span>
+<span class="sd">        - `MeTTa language &lt;https://metta-lang.dev&gt;`__</span>
+<span class="sd">        - `OpenCog Hyperon framework &lt;https://hyperon.opencog.org&gt;`__</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">required_tasks</span> <span class="o">=</span> <span class="p">[</span>
+            <span class="n">tasks</span><span class="o">.</span><span class="n">CreateMettaFile</span><span class="p">(</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">dirpath</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">version</span><span class="p">,</span> <span class="n">representation</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_CreateSqliteFile</span>
+            <span class="p">),</span>
+        <span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_tasks</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">required_tasks</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">to_graphml</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Convert the knowledge graph to a GraphML text file.</span>
+
+<span class="sd">        Generates the output file `kg.graphml`.</span>
+
+<span class="sd">        References</span>
+<span class="sd">        ----------</span>
+<span class="sd">        - `GraphML &lt;http://graphml.graphdrawing.org&gt;`__</span>
+<span class="sd">        - `Wikipedia: GraphML &lt;https://en.wikipedia.org/wiki/GraphML&gt;`__</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">required_tasks</span> <span class="o">=</span> <span class="p">[</span>
+            <span class="n">tasks</span><span class="o">.</span><span class="n">CreateGraphMlFile</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">dirpath</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">version</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_CreateSqliteFile</span><span class="p">),</span>
+        <span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_tasks</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">required_tasks</span><span class="p">)</span>
+
+
+<span class="k">def</span> <span class="nf">set_logging_behavior</span><span class="p">(</span><span class="n">verbose</span><span class="p">):</span>
+    <span class="c1"># Turn off luigi&#39;s logger</span>
+    <span class="k">for</span> <span class="n">name</span> <span class="ow">in</span> <span class="p">(</span><span class="s2">&quot;luigi&quot;</span><span class="p">,</span> <span class="s2">&quot;luigi-interface&quot;</span><span class="p">):</span>
+        <span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">logger</span><span class="o">.</span><span class="n">handlers</span><span class="p">:</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">handlers</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">disabled</span> <span class="o">=</span> <span class="kc">True</span>
+        <span class="n">warnings</span><span class="o">.</span><span class="n">filterwarnings</span><span class="p">(</span><span class="s2">&quot;ignore&quot;</span><span class="p">,</span> <span class="n">module</span><span class="o">=</span><span class="n">name</span><span class="p">)</span>
+
+    <span class="c1"># Set up logger for this package</span>
+    <span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">logger</span><span class="o">.</span><span class="n">handlers</span><span class="p">:</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">handlers</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
+    <span class="k">if</span> <span class="n">verbose</span><span class="p">:</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">disabled</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="n">logging</span><span class="o">.</span><span class="n">basicConfig</span><span class="p">(</span>
+            <span class="n">level</span><span class="o">=</span><span class="n">logging</span><span class="o">.</span><span class="n">INFO</span><span class="p">,</span>
+            <span class="nb">format</span><span class="o">=</span><span class="s2">&quot;</span><span class="si">%(asctime)s</span><span class="s2">  </span><span class="si">%(message)s</span><span class="s2">&quot;</span><span class="p">,</span>
+            <span class="n">datefmt</span><span class="o">=</span><span class="s2">&quot;%Y-%m-</span><span class="si">%d</span><span class="s2"> %H:%M:%S&quot;</span><span class="p">,</span>
+            <span class="n">handlers</span><span class="o">=</span><span class="p">[</span><span class="n">logging</span><span class="o">.</span><span class="n">StreamHandler</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">stdout</span><span class="p">)],</span>
+            <span class="n">force</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">disabled</span> <span class="o">=</span> <span class="kc">True</span>
+
+
+<div class="viewcode-block" id="run">
+<a class="viewcode-back" href="../../../autoapi/kgw/index.html#kgw.run">[docs]</a>
+<span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="n">workflow</span><span class="p">,</span> <span class="n">num_workers</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Execute all tasks in the provided workflow according to their dependencies.</span>
+
+<span class="sd">    This function uses the package Luigi [1]_ to build</span>
+<span class="sd">    a dependency graph of all tasks defined in the workflow and</span>
+<span class="sd">    execute them in parallel with multiple worker processes.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    workflow : `~kgw._shared.base.Project`, or list of `~kgw._shared.base.Project`</span>
+<span class="sd">        Specification of a workflow in form of a single or multiple</span>
+<span class="sd">        project objects. A project object provides several methods that can</span>
+<span class="sd">        be called in order to add specific tasks.</span>
+<span class="sd">        For example, calling the method `to_csv()` will store a task in the</span>
+<span class="sd">        object that represents the conversion of the project&#39;s knowledge graph</span>
+<span class="sd">        into CSV format. The workflow engine automatically detects these tasks,</span>
+<span class="sd">        inspects their dependencies, and schedules all necessary steps in the</span>
+<span class="sd">        correct order.</span>
+<span class="sd">    num_workers : `int`, optional, default=4*cpu_count</span>
+<span class="sd">        The number of worker processes to run tasks in parallel. If not</span>
+<span class="sd">        specified, it defaults to 4 times the number of CPU cores available</span>
+<span class="sd">        on the machine.</span>
+<span class="sd">    verbose : `bool`, optional, default=True</span>
+<span class="sd">        If `True`, a log of tasks and a summary of results is written to stdout.</span>
+<span class="sd">        If `False`, no text is printed.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    success : `bool`</span>
+<span class="sd">        Returns `True` if all tasks were successfully scheduled and executed,</span>
+<span class="sd">        otherwise `False`. A failed run can be resumed from an</span>
+<span class="sd">        intermediate state without re-running previously completed tasks.</span>
+
+<span class="sd">    Raises</span>
+<span class="sd">    ------</span>
+<span class="sd">    TypeError</span>
+<span class="sd">        Raised if `workflow` is not a project object or list of such objects,</span>
+<span class="sd">        or if `num_workers` is not an integer, or if `verbose` is not a boolean.</span>
+<span class="sd">    ValueError</span>
+<span class="sd">        Raised if `workflow` is an empty list.</span>
+
+<span class="sd">    References</span>
+<span class="sd">    ----------</span>
+<span class="sd">    .. [1] Luigi Documentation, https://luigi.readthedocs.io</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># Argument processing</span>
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">workflow</span><span class="p">,</span> <span class="n">Project</span><span class="p">):</span>
+        <span class="n">workflows</span> <span class="o">=</span> <span class="p">[</span><span class="n">workflow</span><span class="p">]</span>
+    <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">workflow</span><span class="p">,</span> <span class="p">(</span><span class="nb">list</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">,</span> <span class="nb">set</span><span class="p">))</span> <span class="ow">and</span> <span class="nb">all</span><span class="p">(</span>
+        <span class="nb">isinstance</span><span class="p">(</span><span class="n">w</span><span class="p">,</span> <span class="n">Project</span><span class="p">)</span> <span class="k">for</span> <span class="n">w</span> <span class="ow">in</span> <span class="n">workflow</span>
+    <span class="p">):</span>
+        <span class="n">workflows</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">workflow</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">msg</span> <span class="o">=</span> <span class="s1">&#39;Argument &quot;workflow&quot; needs to be a project or a list of projects.&#39;</span>
+        <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">workflows</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="n">msg</span> <span class="o">=</span> <span class="s2">&quot;Got an empty list of workflows.&quot;</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">num_workers</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">num_workers</span> <span class="o">=</span> <span class="n">multiprocessing</span><span class="o">.</span><span class="n">cpu_count</span><span class="p">()</span> <span class="o">*</span> <span class="mi">4</span>
+    <span class="k">elif</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">num_workers</span><span class="p">,</span> <span class="nb">int</span><span class="p">):</span>
+        <span class="n">msg</span> <span class="o">=</span> <span class="s1">&#39;Argument &quot;num_workers&quot; needs to be an integer or None.&#39;</span>
+        <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">verbose</span><span class="p">,</span> <span class="nb">bool</span><span class="p">):</span>
+        <span class="n">msg</span> <span class="o">=</span> <span class="s1">&#39;Argument &quot;verbose&quot; needs to be True or False.&#39;</span>
+        <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+
+    <span class="c1"># Set logging behavior</span>
+    <span class="n">set_logging_behavior</span><span class="p">(</span><span class="n">verbose</span><span class="p">)</span>
+
+    <span class="c1"># Collect tasks</span>
+    <span class="n">tasks</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">workflow</span> <span class="ow">in</span> <span class="n">workflows</span><span class="p">:</span>
+        <span class="n">tasks</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">workflow</span><span class="o">.</span><span class="n">_tasks</span><span class="p">)</span>
+
+    <span class="c1"># Run tasks</span>
+    <span class="k">if</span> <span class="n">verbose</span><span class="p">:</span>
+        <span class="n">msg</span> <span class="o">=</span> <span class="s2">&quot;Log of performed tasks&quot;</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;=&quot;</span> <span class="o">*</span> <span class="nb">len</span><span class="p">(</span><span class="n">msg</span><span class="p">))</span>
+        <span class="nb">print</span><span class="p">()</span>
+    <span class="n">result</span> <span class="o">=</span> <span class="n">luigi</span><span class="o">.</span><span class="n">build</span><span class="p">(</span>
+        <span class="n">tasks</span><span class="p">,</span>
+        <span class="n">local_scheduler</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">detailed_summary</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">workers</span><span class="o">=</span><span class="n">num_workers</span><span class="p">,</span>
+    <span class="p">)</span>
+
+    <span class="c1"># Report results</span>
+    <span class="k">def</span> <span class="nf">crop_results</span><span class="p">(</span><span class="n">text</span><span class="p">):</span>
+        <span class="n">prefix</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">===== Luigi Execution Summary =====</span><span class="se">\n\n</span><span class="s2">&quot;</span>
+        <span class="n">postfix</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="se">\n\n</span><span class="s2">===== Luigi Execution Summary =====</span><span class="se">\n</span><span class="s2">&quot;</span>
+        <span class="k">if</span> <span class="n">text</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="n">prefix</span><span class="p">):</span>
+            <span class="n">text</span> <span class="o">=</span> <span class="n">text</span><span class="p">[</span><span class="nb">len</span><span class="p">(</span><span class="n">prefix</span><span class="p">)</span> <span class="p">:]</span>
+        <span class="k">if</span> <span class="n">text</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="n">postfix</span><span class="p">):</span>
+            <span class="n">text</span> <span class="o">=</span> <span class="n">text</span><span class="p">[:</span> <span class="o">-</span><span class="nb">len</span><span class="p">(</span><span class="n">postfix</span><span class="p">)]</span>
+        <span class="k">return</span> <span class="n">text</span>
+
+    <span class="k">if</span> <span class="n">verbose</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">()</span>
+        <span class="nb">print</span><span class="p">()</span>
+        <span class="n">msg</span> <span class="o">=</span> <span class="s2">&quot;Summary of workflow results&quot;</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;=&quot;</span> <span class="o">*</span> <span class="nb">len</span><span class="p">(</span><span class="n">msg</span><span class="p">))</span>
+        <span class="nb">print</span><span class="p">()</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">crop_results</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">summary_text</span><span class="p">))</span>
+    <span class="k">return</span> <span class="n">result</span><span class="o">.</span><span class="n">scheduling_succeeded</span></div>
+
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, Robert Haas.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

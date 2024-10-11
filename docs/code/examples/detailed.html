@@ -1,0 +1,723 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Detailed example &mdash; kgw 0.1.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=fa44fd50" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=19f00094" />
+      <link rel="stylesheet" type="text/css" href="../../_static/graphviz.css?v=fd3f3429" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/custom.css?v=2cff78c4" />
+      <link rel="stylesheet" type="text/css" href="../../_static/nbsphinx-code-cells.css" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../../_static/documentation_options.js?v=01f34227"></script>
+        <script src="../../_static/doctools.js?v=9a2dae69"></script>
+        <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+        <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+        <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="API Reference" href="../../autoapi/index.html" />
+    <link rel="prev" title="Quickstart example" href="quickstart.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../index.html">
+            
+              <img src="../../_static/kgw.svg" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../rst/package_references.html">Package References</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../rst/installation.html">Installation Guide</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../../rst/examples.html">Examples</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="quickstart.html">Quickstart example</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Detailed example</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#Load-the-package">Load the package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#List-all-supported-projects">List all supported projects</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#Get-details-for-a-project">Get details for a project</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#Inspect-available-versions-of-a-project">Inspect available versions of a project</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#Define-a-workflow-covering-multiple-projects-and-versions">Define a workflow covering multiple projects and versions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#Run-it">Run it</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#Inspect-the-results">Inspect the results</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#Interpret-them">Interpret them</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../autoapi/index.html">API Reference</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">kgw</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../rst/examples.html">Examples</a></li>
+      <li class="breadcrumb-item active">Detailed example</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="Detailed-example">
+<h1>Detailed example<a class="headerlink" href="#Detailed-example" title="Link to this heading"></a></h1>
+<p>The following provides a detailed example for getting familiar with most features of the package <a class="reference external" href="https://robert-haas.github.io/kgw-docs">kgw</a>.</p>
+<section id="Load-the-package">
+<h2>Load the package<a class="headerlink" href="#Load-the-package" title="Link to this heading"></a></h2>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">kgw</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">kgw</span><span class="o">.</span><span class="n">__version__</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+0.1.0
+</pre></div></div>
+</div>
+</section>
+<section id="List-all-supported-projects">
+<h2>List all supported projects<a class="headerlink" href="#List-all-supported-projects" title="Link to this heading"></a></h2>
+<p>Currently this package supports five knowledge graph projects from the field of biomedicine. They are grouped in a module named after the domain, because future versions of the package may cover more projects from different domains.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">project_names</span> <span class="o">=</span> <span class="p">[</span><span class="n">x</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">dir</span><span class="p">(</span><span class="n">kgw</span><span class="o">.</span><span class="n">biomedicine</span><span class="p">)</span> <span class="k">if</span> <span class="ow">not</span> <span class="n">x</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">&quot;_&quot;</span><span class="p">)]</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">project_names</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+[&#39;Ckg&#39;, &#39;Hald&#39;, &#39;MonarchKg&#39;, &#39;Oregano&#39;, &#39;PrimeKg&#39;]
+</pre></div></div>
+</div>
+</section>
+<section id="Get-details-for-a-project">
+<h2>Get details for a project<a class="headerlink" href="#Get-details-for-a-project" title="Link to this heading"></a></h2>
+<p>Each project comes with additional information such as references to its publication, website and data repository. The text can be read in a nicely formatted form in the <a class="reference external" href="https://robert-haas.github.io/kgw-docs/rst/api/index.html">API documentation</a>. Alternatively, it can be accessed in its raw ReST form by calling <a class="reference external" href="https://docs.python.org/3/library/functions.html#help">Python’s built-in help system</a> on the project’s class, which is done below for the project HALD:</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">help</span><span class="p">(</span><span class="n">kgw</span><span class="o">.</span><span class="n">biomedicine</span><span class="o">.</span><span class="n">Hald</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Help on class Hald in module kgw.biomedicine._hald:
+
+class Hald(kgw._shared.base.Project)
+ |  Hald(version, workdir)
+ |
+ |  Human Aging and Longevity Dataset (HALD).
+ |
+ |  References
+ |  ----------
+ |  - Publication: https://doi.org/10.1038/s41597-023-02781-0
+ |  - Website: https://bis.zju.edu.cn/hald
+ |  - Code: https://github.com/zexuwu/hald
+ |  - Data: https://doi.org/10.6084/m9.figshare.22828196
+ |
+ |  Method resolution order:
+ |      Hald
+ |      kgw._shared.base.Project
+ |      builtins.object
+ |
+ |  Methods defined here:
+ |
+ |  to_schema(self)
+ |      Determine the schema of the knowledge graph.
+ |
+ |      Output: `schema.html`
+ |
+ |      Generate a standalone HTML file with an interactive graph visualization
+ |      of all entity types in the KG and the relationship types by which they
+ |      are connected.
+ |
+ |      References
+ |      ----------
+ |      - `Neo4j: Graph modeling guidelines
+ |        &lt;https://neo4j.com/docs/getting-started/data-modeling/guide-data-modeling/&gt;`__
+ |
+ |  ----------------------------------------------------------------------
+ |  Methods inherited from kgw._shared.base.Project:
+ |
+ |  __init__(self, version, workdir)
+ |      Initialize a project instance so that tasks can be defined on it.
+ |
+ |      Parameters
+ |      ----------
+ |      version : `str`
+ |          Version of the dataset that will be downloaded and processed.
+ |          The method :meth:`get_versions` returns all currently available
+ |          versions.
+ |      workdir : `str`
+ |          Path of the working directory in which a unique subdirectory will
+ |          be created to hold all downloaded and generated files for
+ |          this project and version.
+ |
+ |      Raises
+ |      ------
+ |      ValueError
+ |          Raised if `version` is invalid or unavailable.
+ |      TypeError
+ |          Raised if `workdir` is not a string.
+ |
+ |      Notes
+ |      -----
+ |      This class does not automatically download or process any data.
+ |      Such tasks first need to be specified by calling the relevant methods
+ |      on the project object and then passing it to the function :func:`~kgw.run`
+ |      that builds and executes a corresponding workflow.
+ |
+ |  to_csv(self)
+ |      Convert the knowledge graph to two `CSV &lt;https://en.wikipedia.org/wiki/Comma-separated_values&gt;`__ files.
+ |
+ |      File names: `kg_nodes.csv` and `kg_edges.csv`
+ |
+ |  to_graphml(self)
+ |      Convert the knowledge graph to a `GraphML &lt;https://en.wikipedia.org/wiki/GraphML&gt;`__ file.
+ |
+ |      File name: `kg.graphml`
+ |
+ |  to_jsonl(self)
+ |      Convert the knowledge graph to two `JSONL &lt;https://jsonlines.org&gt;`__ files.
+ |
+ |      Output: `kg_nodes.jsonl` and `kg_edges.jsonl`
+ |
+ |  to_metta(self, representation=&#39;spo&#39;)
+ |      Convert the knowledge graph to a `MeTTa &lt;https://metta-lang.dev&gt;`__ file.
+ |
+ |      File name: Depending on the chosen representation, either
+ |      `kg_spo.metta`,
+ |      `kg_properties_aggregated.metta`, or
+ |      `kg_properties_expanded.metta`.
+ |
+ |      Parameters
+ |      ----------
+ |      representation : str
+ |          Available options:
+ |
+ |          - `&#34;spo&#34;`: Semantic triples of the form `(&#34;subject&#34;, &#34;predicate&#34;, &#34;object&#34;)`.
+ |            If properties are present in the original KG, they are ignored in this
+ |            representation.
+ |          - `&#34;properties_aggregated&#34;`: Properties (=key-value pairs) are represented
+ |            by putting each key on a separate line, but each value is ensured to be a
+ |            single number or string. This means values that hold a compound data type
+ |            like a list or dict are aggregated into one string in JSON string format.
+ |            Text identifiers of nodes are reused to create the association with their
+ |            properties, while text identifiers of the form &#34;e{cnt}&#34; are introduced for
+ |            edges to serve the same purpose.
+ |          - `&#34;properties_expanded&#34;`: Properties (=key-value pairs) are represented
+ |            by fully expanding their keys and values onto as many lines as required.
+ |            Numerical identifiers for nodes and edges are introduced to create the
+ |            association between these elements and their properties.
+ |
+ |  to_sql(self)
+ |      Convert the knowledge graph to a `SQL &lt;https://docs.fileformat.com/database/sql&gt;`__ file.
+ |
+ |      Output: `kg.sql`
+ |
+ |      References
+ |      ----------
+ |      - `&lt;&gt;`__
+ |
+ |  to_sqlite(self)
+ |      Convert the knowledge graph to a file-based SQLite database.
+ |
+ |      Output: `kg.sqlite`
+ |
+ |      References
+ |      ----------
+ |      - `SQLite &lt;https://www.sqlite.org&gt;`__
+ |
+ |  to_statistics(self)
+ |      Determine some statistical properties of the knowledge graph.
+ |
+ |      Output: `statistics.json`
+ |
+ |      This method generates a JSON file with simple statistics
+ |      such as node, edge and type counts.
+ |
+ |  ----------------------------------------------------------------------
+ |  Class methods inherited from kgw._shared.base.Project:
+ |
+ |  get_versions()
+ |      Fetch all currently available versions from the data repository of the project.
+ |
+ |  ----------------------------------------------------------------------
+ |  Data descriptors inherited from kgw._shared.base.Project:
+ |
+ |  __dict__
+ |      dictionary for instance variables
+ |
+ |  __weakref__
+ |      list of weak references to the object
+
+</pre></div></div>
+</div>
+</section>
+<section id="Inspect-available-versions-of-a-project">
+<h2>Inspect available versions of a project<a class="headerlink" href="#Inspect-available-versions-of-a-project" title="Link to this heading"></a></h2>
+<p>Projects share their knowledge graphs in various data formats and make them available on different data repositories on the web. Often they publish multiple versions of their knowledge graph and do so with different naming conventions for their version identifiers. One reason for providing an update is that an error was discovered in a previous version, but another more important reason is that newer source data became available and so a new knowledge graph is published to reflect the status quo
+of available information.</p>
+<p>This package can fetch all currently available versions for each project from their respective data repositories.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">kgw</span><span class="o">.</span><span class="n">biomedicine</span><span class="o">.</span><span class="n">Hald</span><span class="o">.</span><span class="n">get_versions</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+[&#39;1&#39;, &#39;2&#39;, &#39;3&#39;, &#39;4&#39;, &#39;5&#39;, &#39;6&#39;]
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">kgw</span><span class="o">.</span><span class="n">biomedicine</span><span class="o">.</span><span class="n">MonarchKg</span><span class="o">.</span><span class="n">get_versions</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+[&#39;2023-09-28&#39;,
+ &#39;2023-10-17&#39;,
+ &#39;2023-11-16&#39;,
+ &#39;2023-12-16&#39;,
+ &#39;2024-01-13&#39;,
+ &#39;2024-02-13&#39;,
+ &#39;2024-03-13&#39;,
+ &#39;2024-03-18&#39;,
+ &#39;2024-04-18&#39;,
+ &#39;2024-05-17&#39;,
+ &#39;2024-05-22&#39;,
+ &#39;2024-06-10&#39;,
+ &#39;2024-07-04&#39;,
+ &#39;2024-07-12&#39;,
+ &#39;2024-08-12&#39;,
+ &#39;2024-09-12&#39;]
+</pre></div></div>
+</div>
+</section>
+<section id="Define-a-workflow-covering-multiple-projects-and-versions">
+<h2>Define a workflow covering multiple projects and versions<a class="headerlink" href="#Define-a-workflow-covering-multiple-projects-and-versions" title="Link to this heading"></a></h2>
+<p>This example demonstrates a few points:</p>
+<ol class="arabic simple">
+<li><p>A project is represented by a class that has to be instantiated with a <code class="docutils literal notranslate"><span class="pre">version</span></code> and <code class="docutils literal notranslate"><span class="pre">workdir</span></code> argument.</p>
+<ul class="simple">
+<li><p>The version identifier needs to be one of those listed by <code class="docutils literal notranslate"><span class="pre">get_versions()</span></code>.</p></li>
+<li><p>The working directory needs to be a local directory, which after running the workflow will contain both the raw downloads and generated results.</p></li>
+</ul>
+</li>
+<li><p>A project’s knowledge graph can be converted into various output formats by making method calls on the object. The actual processing happens when running the workflow. Decoupling the definition of a workflow from running it allows to analyze dependencies, so that no task is run twice and several independent tasks can be run in parallel.</p></li>
+<li><p>Multiple versions of the same project are represented by different objects and can be part of the same workflow. Behind the scenes, different files will be fetched from the data repositories and converted into different target locations.</p></li>
+<li><p>Multiple output formats can be defined, and which ones can vary from project to project. The example below will show all available formats on the first project.</p></li>
+</ol>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">workdir</span> <span class="o">=</span> <span class="s2">&quot;a_workdir_for_kgw&quot;</span>
+
+<span class="c1"># Project 1 in the first version it got published</span>
+<span class="n">hald1</span> <span class="o">=</span> <span class="n">kgw</span><span class="o">.</span><span class="n">biomedicine</span><span class="o">.</span><span class="n">Hald</span><span class="p">(</span><span class="s2">&quot;1&quot;</span><span class="p">,</span> <span class="n">workdir</span><span class="p">)</span>
+<span class="n">hald1</span><span class="o">.</span><span class="n">to_sqlite</span><span class="p">()</span>
+<span class="n">hald1</span><span class="o">.</span><span class="n">to_schema</span><span class="p">()</span>
+<span class="n">hald1</span><span class="o">.</span><span class="n">to_statistics</span><span class="p">()</span>
+<span class="n">hald1</span><span class="o">.</span><span class="n">to_csv</span><span class="p">()</span>
+<span class="n">hald1</span><span class="o">.</span><span class="n">to_jsonl</span><span class="p">()</span>
+<span class="n">hald1</span><span class="o">.</span><span class="n">to_sql</span><span class="p">()</span>
+<span class="n">hald1</span><span class="o">.</span><span class="n">to_graphml</span><span class="p">()</span>
+<span class="n">hald1</span><span class="o">.</span><span class="n">to_metta</span><span class="p">(</span><span class="n">representation</span><span class="o">=</span><span class="s2">&quot;spo&quot;</span><span class="p">)</span>
+<span class="n">hald1</span><span class="o">.</span><span class="n">to_metta</span><span class="p">(</span><span class="n">representation</span><span class="o">=</span><span class="s2">&quot;properties_aggregated&quot;</span><span class="p">)</span>
+<span class="n">hald1</span><span class="o">.</span><span class="n">to_metta</span><span class="p">(</span><span class="n">representation</span><span class="o">=</span><span class="s2">&quot;properties_expanded&quot;</span><span class="p">)</span>
+
+<span class="c1"># Project 1 in the latest version it got published</span>
+<span class="n">hald2</span> <span class="o">=</span> <span class="n">kgw</span><span class="o">.</span><span class="n">biomedicine</span><span class="o">.</span><span class="n">Hald</span><span class="p">(</span><span class="s2">&quot;latest&quot;</span><span class="p">,</span> <span class="n">workdir</span><span class="p">)</span>
+<span class="n">hald2</span><span class="o">.</span><span class="n">to_schema</span><span class="p">()</span>
+<span class="n">hald2</span><span class="o">.</span><span class="n">to_graphml</span><span class="p">()</span>
+
+<span class="c1"># Project 2</span>
+<span class="n">oregano</span> <span class="o">=</span> <span class="n">kgw</span><span class="o">.</span><span class="n">biomedicine</span><span class="o">.</span><span class="n">Oregano</span><span class="p">(</span><span class="s2">&quot;latest&quot;</span><span class="p">,</span> <span class="n">workdir</span><span class="p">)</span>
+<span class="n">oregano</span><span class="o">.</span><span class="n">to_schema</span><span class="p">()</span>
+<span class="n">oregano</span><span class="o">.</span><span class="n">to_statistics</span><span class="p">()</span>
+<span class="n">oregano</span><span class="o">.</span><span class="n">to_metta</span><span class="p">()</span>
+
+<span class="c1"># Project 3</span>
+<span class="n">monarchkg</span> <span class="o">=</span> <span class="n">kgw</span><span class="o">.</span><span class="n">biomedicine</span><span class="o">.</span><span class="n">MonarchKg</span><span class="p">(</span><span class="s2">&quot;latest&quot;</span><span class="p">,</span> <span class="n">workdir</span><span class="p">)</span>
+<span class="n">monarchkg</span><span class="o">.</span><span class="n">to_schema</span><span class="p">()</span>
+<span class="n">monarchkg</span><span class="o">.</span><span class="n">to_csv</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</section>
+<section id="Run-it">
+<h2>Run it<a class="headerlink" href="#Run-it" title="Link to this heading"></a></h2>
+<p>The workflow definition only included the desired version, workdir and outputs. Implicitly this involves additional tasks beyond the conversion to the desired outputs, such as creating all target directories and producing intermediate representations. The workflow engine behind <code class="docutils literal notranslate"><span class="pre">run</span></code> will automatically build a dependency graph of all tasks and execute them in the required order and whenever possible in parallel.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">run</span></code> functions accepts a workflow definition in form of either 1) a single project object or 2) multiple project objects in a list, which is shown below. Optionally <code class="docutils literal notranslate"><span class="pre">verbose=False</span></code> can be passed to turn off the printing of a log.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">status</span> <span class="o">=</span> <span class="n">kgw</span><span class="o">.</span><span class="n">run</span><span class="p">([</span><span class="n">hald1</span><span class="p">,</span> <span class="n">hald2</span><span class="p">,</span> <span class="n">oregano</span><span class="p">,</span> <span class="n">monarchkg</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Log of performed tasks
+======================
+
+2024-10-11 01:18:37  <span class="ansi-blue-intense-fg">Started</span>   CreateDirectory(dirpath=a_workdir_for_kgw/hald_v1/results)
+2024-10-11 01:18:38  <span class="ansi-green-intense-fg">Finished</span>  CreateDirectory(dirpath=a_workdir_for_kgw/hald_v1/results)
+2024-10-11 01:18:38  <span class="ansi-blue-intense-fg">Started</span>   CreateDirectory(dirpath=a_workdir_for_kgw/hald_v6/results)
+2024-10-11 01:18:38  <span class="ansi-green-intense-fg">Finished</span>  CreateDirectory(dirpath=a_workdir_for_kgw/hald_v6/results)
+2024-10-11 01:18:38  <span class="ansi-blue-intense-fg">Started</span>   CreateDirectory(dirpath=a_workdir_for_kgw/hald_v6/downloads)
+2024-10-11 01:18:37  <span class="ansi-blue-intense-fg">Started</span>   CreateDirectory(dirpath=a_workdir_for_kgw/hald_v1/downloads)
+2024-10-11 01:18:38  <span class="ansi-green-intense-fg">Finished</span>  CreateDirectory(dirpath=a_workdir_for_kgw/hald_v6/downloads)
+2024-10-11 01:18:38  <span class="ansi-green-intense-fg">Finished</span>  CreateDirectory(dirpath=a_workdir_for_kgw/hald_v1/downloads)
+2024-10-11 01:18:38  <span class="ansi-blue-intense-fg">Started</span>   CreateDirectory(dirpath=a_workdir_for_kgw/oregano_v3/results)
+2024-10-11 01:18:38  <span class="ansi-green-intense-fg">Finished</span>  CreateDirectory(dirpath=a_workdir_for_kgw/oregano_v3/results)
+2024-10-11 01:18:38  <span class="ansi-blue-intense-fg">Started</span>   CreateDirectory(dirpath=a_workdir_for_kgw/oregano_v3/downloads)
+2024-10-11 01:18:38  <span class="ansi-green-intense-fg">Finished</span>  CreateDirectory(dirpath=a_workdir_for_kgw/oregano_v3/downloads)
+2024-10-11 01:18:38  <span class="ansi-blue-intense-fg">Started</span>   CreateDirectory(dirpath=a_workdir_for_kgw/monarchkg_v2024-09-12/results)
+2024-10-11 01:18:38  <span class="ansi-green-intense-fg">Finished</span>  CreateDirectory(dirpath=a_workdir_for_kgw/monarchkg_v2024-09-12/results)
+2024-10-11 01:18:38  <span class="ansi-blue-intense-fg">Started</span>   CreateDirectory(dirpath=a_workdir_for_kgw/monarchkg_v2024-09-12/downloads)
+2024-10-11 01:18:38  <span class="ansi-green-intense-fg">Finished</span>  CreateDirectory(dirpath=a_workdir_for_kgw/monarchkg_v2024-09-12/downloads)
+2024-10-11 01:18:38  <span class="ansi-blue-intense-fg">Started</span>   DownloadFile(dirpath=a_workdir_for_kgw/hald_v6/downloads, filename=Relation_Info.json)
+2024-10-11 01:18:38  <span class="ansi-blue-intense-fg">Started</span>   DownloadFile(dirpath=a_workdir_for_kgw/hald_v6/downloads, filename=Entity_Info.json)
+2024-10-11 01:18:38  <span class="ansi-blue-intense-fg">Started</span>   DownloadFile(dirpath=a_workdir_for_kgw/hald_v1/downloads, filename=Relation_Info.json)
+2024-10-11 01:18:38  <span class="ansi-blue-intense-fg">Started</span>   DownloadFile(dirpath=a_workdir_for_kgw/hald_v1/downloads, filename=Entity_Info.json)
+2024-10-11 01:18:38  <span class="ansi-blue-intense-fg">Started</span>   DownloadFile(dirpath=a_workdir_for_kgw/oregano_v3/downloads, filename=GENES.tsv)
+2024-10-11 01:18:38  <span class="ansi-blue-intense-fg">Started</span>   DownloadFile(dirpath=a_workdir_for_kgw/oregano_v3/downloads, filename=TARGET.tsv)
+2024-10-11 01:18:38  <span class="ansi-blue-intense-fg">Started</span>   DownloadFile(dirpath=a_workdir_for_kgw/oregano_v3/downloads, filename=DISEASES.tsv)
+2024-10-11 01:18:38  <span class="ansi-blue-intense-fg">Started</span>   DownloadFile(dirpath=a_workdir_for_kgw/oregano_v3/downloads, filename=EFFECT.tsv)
+2024-10-11 01:18:38  <span class="ansi-blue-intense-fg">Started</span>   DownloadFile(dirpath=a_workdir_for_kgw/oregano_v3/downloads, filename=ACTIVITY.tsv)
+2024-10-11 01:18:38  <span class="ansi-blue-intense-fg">Started</span>   DownloadFile(dirpath=a_workdir_for_kgw/oregano_v3/downloads, filename=PATHWAYS.tsv)
+2024-10-11 01:18:38  <span class="ansi-blue-intense-fg">Started</span>   DownloadFile(dirpath=a_workdir_for_kgw/oregano_v3/downloads, filename=SIDE_EFFECT.tsv)
+2024-10-11 01:18:38  <span class="ansi-blue-intense-fg">Started</span>   DownloadFile(dirpath=a_workdir_for_kgw/oregano_v3/downloads, filename=PHENOTYPES.tsv)
+2024-10-11 01:18:38  <span class="ansi-blue-intense-fg">Started</span>   DownloadFile(dirpath=a_workdir_for_kgw/oregano_v3/downloads, filename=INDICATION.tsv)
+2024-10-11 01:18:38  <span class="ansi-blue-intense-fg">Started</span>   DownloadFile(dirpath=a_workdir_for_kgw/oregano_v3/downloads, filename=COMPOUND.tsv)
+2024-10-11 01:18:38  <span class="ansi-blue-intense-fg">Started</span>   DownloadFile(dirpath=a_workdir_for_kgw/oregano_v3/downloads, filename=OREGANO_V2.1.tsv)
+2024-10-11 01:18:38  <span class="ansi-blue-intense-fg">Started</span>   DownloadFile(dirpath=a_workdir_for_kgw/monarchkg_v2024-09-12/downloads, filename=monarch-kg.tar.gz)
+2024-10-11 01:18:48  <span class="ansi-green-intense-fg">Finished</span>  DownloadFile(dirpath=a_workdir_for_kgw/oregano_v3/downloads, filename=ACTIVITY.tsv)
+2024-10-11 01:18:48  <span class="ansi-green-intense-fg">Finished</span>  DownloadFile(dirpath=a_workdir_for_kgw/oregano_v3/downloads, filename=EFFECT.tsv)
+2024-10-11 01:18:50  <span class="ansi-green-intense-fg">Finished</span>  DownloadFile(dirpath=a_workdir_for_kgw/oregano_v3/downloads, filename=PATHWAYS.tsv)
+2024-10-11 01:18:52  <span class="ansi-green-intense-fg">Finished</span>  DownloadFile(dirpath=a_workdir_for_kgw/oregano_v3/downloads, filename=INDICATION.tsv)
+2024-10-11 01:18:54  <span class="ansi-green-intense-fg">Finished</span>  DownloadFile(dirpath=a_workdir_for_kgw/oregano_v3/downloads, filename=SIDE_EFFECT.tsv)
+2024-10-11 01:18:54  <span class="ansi-green-intense-fg">Finished</span>  DownloadFile(dirpath=a_workdir_for_kgw/oregano_v3/downloads, filename=DISEASES.tsv)
+2024-10-11 01:18:56  <span class="ansi-green-intense-fg">Finished</span>  DownloadFile(dirpath=a_workdir_for_kgw/oregano_v3/downloads, filename=PHENOTYPES.tsv)
+2024-10-11 01:19:02  <span class="ansi-green-intense-fg">Finished</span>  DownloadFile(dirpath=a_workdir_for_kgw/oregano_v3/downloads, filename=GENES.tsv)
+2024-10-11 01:19:10  <span class="ansi-green-intense-fg">Finished</span>  DownloadFile(dirpath=a_workdir_for_kgw/oregano_v3/downloads, filename=COMPOUND.tsv)
+2024-10-11 01:19:35  <span class="ansi-green-intense-fg">Finished</span>  DownloadFile(dirpath=a_workdir_for_kgw/oregano_v3/downloads, filename=TARGET.tsv)
+2024-10-11 01:19:36  <span class="ansi-blue-intense-fg">Started</span>   FetchAnnotationFiles(dirpath=a_workdir_for_kgw/oregano_v3, version=3)
+2024-10-11 01:19:36  <span class="ansi-green-intense-fg">Finished</span>  FetchAnnotationFiles(dirpath=a_workdir_for_kgw/oregano_v3, version=3)
+2024-10-11 01:19:42  <span class="ansi-green-intense-fg">Finished</span>  DownloadFile(dirpath=a_workdir_for_kgw/oregano_v3/downloads, filename=OREGANO_V2.1.tsv)
+2024-10-11 01:19:42  <span class="ansi-blue-intense-fg">Started</span>   FetchKnowledgeGraphFile(dirpath=a_workdir_for_kgw/oregano_v3, version=3)
+2024-10-11 01:19:42  <span class="ansi-green-intense-fg">Finished</span>  FetchKnowledgeGraphFile(dirpath=a_workdir_for_kgw/oregano_v3, version=3)
+2024-10-11 01:19:42  <span class="ansi-blue-intense-fg">Started</span>   CreateSqliteFile(dirpath=a_workdir_for_kgw/oregano_v3, version=3)
+2024-10-11 01:20:16  <span class="ansi-green-intense-fg">Finished</span>  DownloadFile(dirpath=a_workdir_for_kgw/hald_v1/downloads, filename=Relation_Info.json)
+2024-10-11 01:20:17  <span class="ansi-blue-intense-fg">Started</span>   FetchEdgesFile(dirpath=a_workdir_for_kgw/hald_v1, version=1)
+2024-10-11 01:20:17  <span class="ansi-green-intense-fg">Finished</span>  FetchEdgesFile(dirpath=a_workdir_for_kgw/hald_v1, version=1)
+2024-10-11 01:20:21  <span class="ansi-green-intense-fg">Finished</span>  CreateSqliteFile(dirpath=a_workdir_for_kgw/oregano_v3, version=3)
+2024-10-11 01:20:21  <span class="ansi-blue-intense-fg">Started</span>   CreateSchemaFile(dirpath=a_workdir_for_kgw/oregano_v3, version=3)
+2024-10-11 01:20:21  <span class="ansi-blue-intense-fg">Started</span>   CreateStatisticsFile(dirpath=a_workdir_for_kgw/oregano_v3, version=3)
+2024-10-11 01:20:21  <span class="ansi-blue-intense-fg">Started</span>   CreateMettaFile(dirpath=a_workdir_for_kgw/oregano_v3, version=3, representation=spo)
+2024-10-11 01:20:23  <span class="ansi-green-intense-fg">Finished</span>  CreateStatisticsFile(dirpath=a_workdir_for_kgw/oregano_v3, version=3)
+2024-10-11 01:20:30  <span class="ansi-green-intense-fg">Finished</span>  CreateSchemaFile(dirpath=a_workdir_for_kgw/oregano_v3, version=3)
+2024-10-11 01:20:31  <span class="ansi-green-intense-fg">Finished</span>  DownloadFile(dirpath=a_workdir_for_kgw/hald_v6/downloads, filename=Relation_Info.json)
+2024-10-11 01:20:31  <span class="ansi-blue-intense-fg">Started</span>   FetchEdgesFile(dirpath=a_workdir_for_kgw/hald_v6, version=6)
+2024-10-11 01:20:31  <span class="ansi-green-intense-fg">Finished</span>  FetchEdgesFile(dirpath=a_workdir_for_kgw/hald_v6, version=6)
+2024-10-11 01:20:32  <span class="ansi-green-intense-fg">Finished</span>  CreateMettaFile(dirpath=a_workdir_for_kgw/oregano_v3, version=3, representation=spo)
+2024-10-11 01:21:20  <span class="ansi-green-intense-fg">Finished</span>  DownloadFile(dirpath=a_workdir_for_kgw/monarchkg_v2024-09-12/downloads, filename=monarch-kg.tar.gz)
+2024-10-11 01:21:20  <span class="ansi-blue-intense-fg">Started</span>   FetchKnowledgeGraphFile(dirpath=a_workdir_for_kgw/monarchkg_v2024-09-12, version=2024-09-12)
+2024-10-11 01:21:20  <span class="ansi-green-intense-fg">Finished</span>  FetchKnowledgeGraphFile(dirpath=a_workdir_for_kgw/monarchkg_v2024-09-12, version=2024-09-12)
+2024-10-11 01:21:20  <span class="ansi-blue-intense-fg">Started</span>   DecompressKnowledgeGraphFile(dirpath=a_workdir_for_kgw/monarchkg_v2024-09-12, version=2024-09-12)
+2024-10-11 01:21:40  <span class="ansi-green-intense-fg">Finished</span>  DownloadFile(dirpath=a_workdir_for_kgw/hald_v1/downloads, filename=Entity_Info.json)
+2024-10-11 01:21:40  <span class="ansi-blue-intense-fg">Started</span>   FetchNodesFile(dirpath=a_workdir_for_kgw/hald_v1, version=1)
+2024-10-11 01:21:40  <span class="ansi-green-intense-fg">Finished</span>  FetchNodesFile(dirpath=a_workdir_for_kgw/hald_v1, version=1)
+2024-10-11 01:21:40  <span class="ansi-blue-intense-fg">Started</span>   CreateSqliteFile(dirpath=a_workdir_for_kgw/hald_v1, version=1)
+2024-10-11 01:21:51  <span class="ansi-green-intense-fg">Finished</span>  DownloadFile(dirpath=a_workdir_for_kgw/hald_v6/downloads, filename=Entity_Info.json)
+2024-10-11 01:21:51  <span class="ansi-blue-intense-fg">Started</span>   FetchNodesFile(dirpath=a_workdir_for_kgw/hald_v6, version=6)
+2024-10-11 01:21:51  <span class="ansi-green-intense-fg">Finished</span>  FetchNodesFile(dirpath=a_workdir_for_kgw/hald_v6, version=6)
+2024-10-11 01:21:51  <span class="ansi-blue-intense-fg">Started</span>   CreateSqliteFile(dirpath=a_workdir_for_kgw/hald_v6, version=6)
+2024-10-11 01:22:02  <span class="ansi-green-intense-fg">Finished</span>  CreateSqliteFile(dirpath=a_workdir_for_kgw/hald_v1, version=1)
+2024-10-11 01:22:02  <span class="ansi-blue-intense-fg">Started</span>   CreateStatisticsFile(dirpath=a_workdir_for_kgw/hald_v1, version=1)
+2024-10-11 01:22:02  <span class="ansi-blue-intense-fg">Started</span>   CreateCompactSchemaFile(dirpath=a_workdir_for_kgw/hald_v1, version=1)
+2024-10-11 01:22:02  <span class="ansi-blue-intense-fg">Started</span>   CreateCsvNodesFile(dirpath=a_workdir_for_kgw/hald_v1, version=1)
+2024-10-11 01:22:02  <span class="ansi-blue-intense-fg">Started</span>   CreateCsvEdgesFile(dirpath=a_workdir_for_kgw/hald_v1, version=1)
+2024-10-11 01:22:02  <span class="ansi-blue-intense-fg">Started</span>   CreateJsonlNodesFile(dirpath=a_workdir_for_kgw/hald_v1, version=1)
+2024-10-11 01:22:03  <span class="ansi-blue-intense-fg">Started</span>   CreateSqlFile(dirpath=a_workdir_for_kgw/hald_v1, version=1)
+2024-10-11 01:22:03  <span class="ansi-blue-intense-fg">Started</span>   CreateJsonlEdgesFile(dirpath=a_workdir_for_kgw/hald_v1, version=1)
+2024-10-11 01:22:03  <span class="ansi-blue-intense-fg">Started</span>   CreateGraphMlFile(dirpath=a_workdir_for_kgw/hald_v1, version=1)
+2024-10-11 01:22:03  <span class="ansi-blue-intense-fg">Started</span>   CreateMettaFile(dirpath=a_workdir_for_kgw/hald_v1, version=1, representation=properties_aggregated)
+2024-10-11 01:22:03  <span class="ansi-blue-intense-fg">Started</span>   CreateMettaFile(dirpath=a_workdir_for_kgw/hald_v1, version=1, representation=spo)
+2024-10-11 01:22:03  <span class="ansi-blue-intense-fg">Started</span>   CreateMettaFile(dirpath=a_workdir_for_kgw/hald_v1, version=1, representation=properties_expanded)
+2024-10-11 01:22:03  <span class="ansi-green-intense-fg">Finished</span>  CreateStatisticsFile(dirpath=a_workdir_for_kgw/hald_v1, version=1)
+2024-10-11 01:22:05  <span class="ansi-green-intense-fg">Finished</span>  DecompressKnowledgeGraphFile(dirpath=a_workdir_for_kgw/monarchkg_v2024-09-12, version=2024-09-12)
+2024-10-11 01:22:05  <span class="ansi-blue-intense-fg">Started</span>   CreateSqliteFile(dirpath=a_workdir_for_kgw/monarchkg_v2024-09-12, version=2024-09-12)
+2024-10-11 01:22:06  <span class="ansi-green-intense-fg">Finished</span>  CreateCompactSchemaFile(dirpath=a_workdir_for_kgw/hald_v1, version=1)
+2024-10-11 01:22:09  <span class="ansi-green-intense-fg">Finished</span>  CreateJsonlEdgesFile(dirpath=a_workdir_for_kgw/hald_v1, version=1)
+2024-10-11 01:22:10  <span class="ansi-green-intense-fg">Finished</span>  CreateMettaFile(dirpath=a_workdir_for_kgw/hald_v1, version=1, representation=spo)
+2024-10-11 01:22:15  <span class="ansi-green-intense-fg">Finished</span>  CreateCsvEdgesFile(dirpath=a_workdir_for_kgw/hald_v1, version=1)
+2024-10-11 01:22:16  <span class="ansi-green-intense-fg">Finished</span>  CreateJsonlNodesFile(dirpath=a_workdir_for_kgw/hald_v1, version=1)
+2024-10-11 01:22:17  <span class="ansi-green-intense-fg">Finished</span>  CreateSqlFile(dirpath=a_workdir_for_kgw/hald_v1, version=1)
+2024-10-11 01:22:28  <span class="ansi-green-intense-fg">Finished</span>  CreateSqliteFile(dirpath=a_workdir_for_kgw/hald_v6, version=6)
+2024-10-11 01:22:28  <span class="ansi-blue-intense-fg">Started</span>   CreateGraphMlFile(dirpath=a_workdir_for_kgw/hald_v6, version=6)
+2024-10-11 01:22:28  <span class="ansi-blue-intense-fg">Started</span>   CreateCompactSchemaFile(dirpath=a_workdir_for_kgw/hald_v6, version=6)
+2024-10-11 01:22:32  <span class="ansi-green-intense-fg">Finished</span>  CreateCompactSchemaFile(dirpath=a_workdir_for_kgw/hald_v6, version=6)
+2024-10-11 01:22:41  <span class="ansi-green-intense-fg">Finished</span>  CreateMettaFile(dirpath=a_workdir_for_kgw/hald_v1, version=1, representation=properties_aggregated)
+2024-10-11 01:22:44  <span class="ansi-green-intense-fg">Finished</span>  CreateCsvNodesFile(dirpath=a_workdir_for_kgw/hald_v1, version=1)
+2024-10-11 01:22:47  <span class="ansi-green-intense-fg">Finished</span>  CreateGraphMlFile(dirpath=a_workdir_for_kgw/hald_v1, version=1)
+2024-10-11 01:23:06  <span class="ansi-green-intense-fg">Finished</span>  CreateGraphMlFile(dirpath=a_workdir_for_kgw/hald_v6, version=6)
+2024-10-11 01:24:23  <span class="ansi-green-intense-fg">Finished</span>  CreateMettaFile(dirpath=a_workdir_for_kgw/hald_v1, version=1, representation=properties_expanded)
+2024-10-11 01:35:08  <span class="ansi-green-intense-fg">Finished</span>  CreateSqliteFile(dirpath=a_workdir_for_kgw/monarchkg_v2024-09-12, version=2024-09-12)
+2024-10-11 01:35:08  <span class="ansi-blue-intense-fg">Started</span>   CreateSchemaFile(dirpath=a_workdir_for_kgw/monarchkg_v2024-09-12, version=2024-09-12)
+2024-10-11 01:35:08  <span class="ansi-blue-intense-fg">Started</span>   CreateCsvNodesFile(dirpath=a_workdir_for_kgw/monarchkg_v2024-09-12, version=2024-09-12)
+2024-10-11 01:35:08  <span class="ansi-blue-intense-fg">Started</span>   CreateCsvEdgesFile(dirpath=a_workdir_for_kgw/monarchkg_v2024-09-12, version=2024-09-12)
+2024-10-11 01:35:35  <span class="ansi-green-intense-fg">Finished</span>  CreateCsvNodesFile(dirpath=a_workdir_for_kgw/monarchkg_v2024-09-12, version=2024-09-12)
+2024-10-11 01:37:46  <span class="ansi-green-intense-fg">Finished</span>  CreateSchemaFile(dirpath=a_workdir_for_kgw/monarchkg_v2024-09-12, version=2024-09-12)
+2024-10-11 01:41:22  <span class="ansi-green-intense-fg">Finished</span>  CreateCsvEdgesFile(dirpath=a_workdir_for_kgw/monarchkg_v2024-09-12, version=2024-09-12)
+
+
+Summary of workflow results
+===========================
+
+Scheduled 55 tasks of which:
+* 55 ran successfully:
+    - 2 CreateCompactSchemaFile(...)
+    - 2 CreateCsvEdgesFile(dirpath=a_workdir_for_kgw/hald_v1, version=1) and CreateCsvEdgesFile(dirpath=a_workdir_for_kgw/monarchkg_v2024-09-12, version=2024-09-12)
+    - 2 CreateCsvNodesFile(dirpath=a_workdir_for_kgw/hald_v1, version=1) and CreateCsvNodesFile(dirpath=a_workdir_for_kgw/monarchkg_v2024-09-12, version=2024-09-12)
+    - 8 CreateDirectory(dirpath=a_workdir_for_kgw/hald_v1/downloads,a_workdir_for_kgw/hald_v1/results,a_workdir_for_kgw/hald_v6/downloads,...)
+    - 2 CreateGraphMlFile(dirpath=a_workdir_for_kgw/hald_v1, version=1) and CreateGraphMlFile(dirpath=a_workdir_for_kgw/hald_v6, version=6)
+    ...
+
+This progress looks :) because there were no failed tasks or missing dependencies
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;The workflow fully succeeded:&quot;</span><span class="p">,</span> <span class="n">status</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+The workflow fully succeeded: True
+</pre></div></div>
+</div>
+</section>
+<section id="Inspect-the-results">
+<h2>Inspect the results<a class="headerlink" href="#Inspect-the-results" title="Link to this heading"></a></h2>
+<p>Running the workflow generates several directories and files within the user-defined working directory. Each combination of project &amp; version get a unique directory to contain all downloads and results.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">os</span>
+
+<span class="k">def</span> <span class="nf">inspect_directory</span><span class="p">(</span><span class="n">path</span><span class="p">):</span>
+    <span class="n">RED</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="se">\033</span><span class="s2">[91m&quot;</span>
+    <span class="n">GREEN</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="se">\033</span><span class="s2">[92m&quot;</span>
+    <span class="n">RESET</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="se">\033</span><span class="s2">[0m&quot;</span>
+    <span class="k">for</span> <span class="n">root</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">files</span> <span class="ow">in</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">walk</span><span class="p">(</span><span class="n">path</span><span class="p">)):</span>
+        <span class="n">dir_name</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">basename</span><span class="p">(</span><span class="n">root</span><span class="p">)</span>
+        <span class="n">level</span> <span class="o">=</span> <span class="n">root</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">count</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">sep</span><span class="p">)</span>
+        <span class="n">color</span> <span class="o">=</span> <span class="n">RED</span> <span class="k">if</span> <span class="n">dir_name</span> <span class="o">==</span> <span class="s2">&quot;downloads&quot;</span> <span class="k">else</span> <span class="n">GREEN</span>
+        <span class="n">dir_indent</span> <span class="o">=</span> <span class="s1">&#39; &#39;</span> <span class="o">*</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">level</span>
+        <span class="n">file_indent</span> <span class="o">=</span> <span class="s1">&#39; &#39;</span> <span class="o">*</span> <span class="mi">2</span> <span class="o">*</span> <span class="p">(</span><span class="n">level</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">dir_indent</span><span class="si">}{</span><span class="n">dir_name</span><span class="si">}</span><span class="s2">/&quot;</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">file_name</span> <span class="ow">in</span> <span class="n">files</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">file_indent</span><span class="si">}{</span><span class="n">color</span><span class="si">}{</span><span class="n">file_name</span><span class="si">}{</span><span class="n">RESET</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="n">inspect_directory</span><span class="p">(</span><span class="n">workdir</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+a_workdir_for_kgw/
+  hald_v1/
+    downloads/
+      <span class="ansi-red-intense-fg">Entity_Info.json</span>
+      <span class="ansi-red-intense-fg">Relation_Info.json</span>
+    results/
+      <span class="ansi-green-intense-fg">kg_edges.jsonl</span>
+      <span class="ansi-green-intense-fg">kg.graphml</span>
+      <span class="ansi-green-intense-fg">kg.sqlite</span>
+      <span class="ansi-green-intense-fg">kg_properties_expanded.metta</span>
+      <span class="ansi-green-intense-fg">statistics.json</span>
+      <span class="ansi-green-intense-fg">kg_properties_aggregated.metta</span>
+      <span class="ansi-green-intense-fg">kg_nodes.jsonl</span>
+      <span class="ansi-green-intense-fg">kg_spo.metta</span>
+      <span class="ansi-green-intense-fg">schema.html</span>
+      <span class="ansi-green-intense-fg">kg.sql</span>
+      <span class="ansi-green-intense-fg">kg_edges.csv</span>
+      <span class="ansi-green-intense-fg">kg_nodes.csv</span>
+  hald_v6/
+    downloads/
+      <span class="ansi-red-intense-fg">Entity_Info.json</span>
+      <span class="ansi-red-intense-fg">Relation_Info.json</span>
+    results/
+      <span class="ansi-green-intense-fg">kg.graphml</span>
+      <span class="ansi-green-intense-fg">kg.sqlite</span>
+      <span class="ansi-green-intense-fg">schema.html</span>
+  monarchkg_v2024-09-12/
+    downloads/
+      <span class="ansi-red-intense-fg">monarch-kg.tar.gz</span>
+    results/
+      <span class="ansi-green-intense-fg">kg.sqlite</span>
+      <span class="ansi-green-intense-fg">schema.html</span>
+      <span class="ansi-green-intense-fg">kg_edges.csv</span>
+      <span class="ansi-green-intense-fg">kg_nodes.csv</span>
+  oregano_v3/
+    downloads/
+      <span class="ansi-red-intense-fg">COMPOUND.tsv</span>
+      <span class="ansi-red-intense-fg">PATHWAYS.tsv</span>
+      <span class="ansi-red-intense-fg">TARGET.tsv</span>
+      <span class="ansi-red-intense-fg">ACTIVITY.tsv</span>
+      <span class="ansi-red-intense-fg">INDICATION.tsv</span>
+      <span class="ansi-red-intense-fg">GENES.tsv</span>
+      <span class="ansi-red-intense-fg">OREGANO_V2.1.tsv</span>
+      <span class="ansi-red-intense-fg">DISEASES.tsv</span>
+      <span class="ansi-red-intense-fg">PHENOTYPES.tsv</span>
+      <span class="ansi-red-intense-fg">EFFECT.tsv</span>
+      <span class="ansi-red-intense-fg">SIDE_EFFECT.tsv</span>
+    results/
+      <span class="ansi-green-intense-fg">kg.sqlite</span>
+      <span class="ansi-green-intense-fg">statistics.json</span>
+      <span class="ansi-green-intense-fg">kg_spo.metta</span>
+      <span class="ansi-green-intense-fg">schema.html</span>
+</pre></div></div>
+</div>
+</section>
+<section id="Interpret-them">
+<h2>Interpret them<a class="headerlink" href="#Interpret-them" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p>The workflow definition at the beginning means that the knowledge graphs of several projects should be converted to several output files of different formats. This requires that the original files are downloaded from the projects’ respective web repositories and then converted step by step into the desired output formats.</p></li>
+<li><p>Running the workflow auto-generates a directory structure in the user-defined working directory <code class="docutils literal notranslate"><span class="pre">a_workdir_for_kgw</span></code>. First there is a subdirectory for each project in its chosen version, so that no collisions can happen. Each directory of such a kind then has two further subdirectories to separate fetched from generated files:</p>
+<ul>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">downloads</span></code> directory contains all files fetched from the project’s web repository in unmodified form, shown in red here. The number and types of files varies between projects because there is no widely accepted standard for how to encode a knowledge graph.</p></li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">results</span></code> directory contains all files derived from the raw downloads, shown in green here.</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">kg.sqlite</span></code> is a file-based SQLite database, which serves as intermediate format that is used as common basis for all conversions and analyses supported by this package. For this reason, it has to be generated in every case before producing any other outputs.</p></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>It is possible to define a small workflow for a single project and output, or a large workflow for multiple projects, versions and output formats. Internally, the Python package <a class="reference external" href="https://github.com/spotify/luigi">luigi</a> is used to build a dependency graph, which contains all tasks that need to be run in order to produce the desired output files. The local inputs and outputs of each task along the way are well defined, so the scheduler can automatically run them as early as possible and
+often in parallel. For example, all downloads are independent, so they don’t need to wait for each other, but some downstream conversions require multiple input files, so they have to wait for a specific subset of downloads or other conversions to be finished. The overall process can be tracked through messages that are written whenever a task starts or is finished. If everything worked, the <code class="docutils literal notranslate"><span class="pre">run</span></code> function returns <code class="docutils literal notranslate"><span class="pre">True</span></code>. If some part failed, e.g. due to a failed web connection, the other
+parts are attempted to be finished as far as possible, but a <code class="docutils literal notranslate"><span class="pre">False</span></code> is returned to make clear that something is missing. The workflow can then be restarted and will not begin again from zero, but rather will only run tasks that have not produced their local outputs yet. Some work may be lost anyways, e.g. when a specific conversion was interrupted in the middle the progress is usually lost, but downloads will attempt to continue from partial files.</p></li>
+</ul>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="quickstart.html" class="btn btn-neutral float-left" title="Quickstart example" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="../../autoapi/index.html" class="btn btn-neutral float-right" title="API Reference" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, Robert Haas.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
